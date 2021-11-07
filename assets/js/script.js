@@ -34,15 +34,6 @@ What about cities iwht ' in the names??
 
 
 
-// var requestWeather = 'https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={minutely,hourly}&units{imperial}&appid={299ebedfe3926f8c9e100c54f9104d93}';
-
-// fetch(requestWeather)
-//   .then(function (response) {
-//     return response.json();
-//   })
-//   .then(function (data) {
-//     console.log('Got the weather');
-//   });
 
 
 var requestCoordinates = 'http://api.openweathermap.org/geo/1.0/direct?q=Sacramento,CA,USA&limit=1&appid=299ebedfe3926f8c9e100c54f9104d93';
@@ -50,14 +41,26 @@ var requestCoordinates = 'http://api.openweathermap.org/geo/1.0/direct?q=Sacrame
 fetch(requestCoordinates)
   .then(function (response) {
     return response.json();
-
   })
-    .then(function (data) {
-          console.log(data);
-         for (var i = 0; i < data.length; i++) {
-            console.log(data[i].lat);
-            console.log(data[i].lon);
+
+  .then(function (data) {
+    console.log(data);
+   for (var i = 0; i < data.length; i++) {
+     console.log(data[i].lat);
+     console.log(data[i].lon);
     }
   })
 
+
+  var weatherUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude={minutely,hourly}&units{imperial}&appid={299ebedfe3926f8c9e100c54f9104d93}';
+
+  fetch(weatherUrl)
+    .then(function (response) {
+      if(response.ok) {
+      response.json().then(function (data) {
+        console.log(data);
+      })
+    }
+    })
+  
 
