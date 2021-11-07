@@ -55,4 +55,11 @@ To see the weather outlook for multiple cities as desired.
 
 
 ### Resources I like or am inspired by
+***
+https://openweathermap.org/
+endpoint for call:
+api.openweathermap.org.
+
+https://www.iso.org/iso-3166-country-codes.html
+
 https://colorhunt.co/palette/15274436759161d2b49dfdc7
