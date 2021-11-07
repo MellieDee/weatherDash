@@ -1,21 +1,36 @@
 
 
+/***PSEUDO CODE FOR WEATHER APP ***
 
-  /***PSEUDO CODE FOR WEATHER APP ***/
+do I need to geocode first?? then enter that data intot he api weather call??
+create input field/form in div close.
+create button
+add event listener to GamepadButtonsave data to lS?
+enters data into and  intiates API Call
+capture data from input field
+set to var then enter in GEO API
+Get lat/long from geoAPI:
+search through all of the items i the array until find one where the city state match, (usual i=0)
+creat var(s) for Lat/lon and pass through as string? to API call for weather
+then need to get specific parts of/attributs of that weather data response:
+city name
+date
+ico
+tempF
+wind MPH
+Humidty%
+UV In with color
 
-// do I need to geocode first?? then enter that data intot he api weather call??
-// search through all of the items i teh array until fin one where the CountQueuingStrategy, stat matchMedia.apply
-// so first need to capture data from input field set to varthen recall that var to see if matches returened data at i
-// then need to get the lat & lon  
-// then need to put those L &L into the main API call to get the weather data
+(create color bg if else satement
+put into HTML divs and cards
+save each line or card? with sep id unique Key to local Storage
+save also list and main summary to local storage
+set button action to histrpy ist
+ceate those dynamic HTML
 
-// then need to get specific parts of/attributs of that data
-// and put into HTML divs and cards
+What about cities iwht ' in the names??
 
-// need to save to local storage those tillfed cards so they come up when buttons are pushed
-
-/************************************* */
-
+- ************************************ */
 
 
 
