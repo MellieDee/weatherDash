@@ -1,0 +1,86 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+
+
+body {
+  /* font-family: 'Open Sans', sans-serif; */
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  line-height: 1;
+  background-color: #152744
+  ; 
+  color: white;
+  /* color: #152744; */
+}
+.h1 {
+  background-color: #F3F8FA;
+  color: #152744;
+  /* position: -webkit-sticky;
+  position: sticky; */
+  top: 0;
+  font-size: 1.8em;
+} 
+
+.h2 {
+  font-size: 1.7em;
+}
+
+.h3 {
+  font-size: 1.5em;
+}
+.card-header{
+  font-size: 1.2em;
+  background-color:#9CE66B;
+}
+.search, .results {
+  border: 1px solid white;
+}
+
+ .card-body, .list-group-item {
+  background-color: #FFFEF8;
+  color: #152744;
+} 
+
+.card-title, .card-text, .card-header {
+  color: #152744;
+}
+/*
+.hero {
+    display: block;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    font-size: 2em;
+    /* margin-block-start: 2em;
+    margin-block-end: 2em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px; 
+    margin: 0 auto;
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 1em;
+}
+
+.search-list {
+  border: 2px solid black;
+} */
+
+/****  between 280px & 360px ******/
+/* @media screen and (min-width: 360px) {
+\
+} */
+
+  /* ***   576px and smaller *****
+ @media screen and (min-width: 576px) {
+  .card {
+    width: 20%;
+  }
+}  */
+
+  /*** MQ FOR SMALLER/MEDIUM SCREENS  and LARGER TABLETS,  LAPTOPS  DESKTOPS  ***/
+@media screen and (min-width: 640px) {
+}
