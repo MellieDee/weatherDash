@@ -27,10 +27,12 @@ body {
 
 .h2 {
   font-size: 1.7em;
+  padding: 1em;
 }
 
 .h3 {
   font-size: 1.5em;
+  color: #152744; 
 }
 .card-header{
   font-size: 1.2em;
@@ -47,6 +49,22 @@ body {
 
 .card-title, .card-text, .card-header {
   color: #152744;
+}
+
+.btn {
+  background-color: #355aab;
+  color: #F1C15A;
+}
+
+.btn:hover {
+  margin: 10px;
+ color: #152744;
+ background-color: #F1C15A;
+}
+
+.main-result {
+  border: 1px solid #F1C15A;
+  margin: 0.3em;
 }
 /*
 .hero {

@@ -18,32 +18,62 @@
 
 <body>
 
-
+  <!--switch to an aside or hor git-it-done is?? instead of put in collumn 2 pput just below it?-->
 
   <div class="h1 text-center">
     <h1 class="h1">Weather Dashboard</h1>
   </div>
 
+<main>
   <div class="container-fluid">
-    <div class="row align-items-center">
+    <div class="row">
 
-      <div class="search col-12 col-md-4 col-lg-4 ">
-        <h2 class="h2">Search for a City...</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+      <div class="card search col-12 col-md-4 col-lg-4 ">
+        <h2 class=card-title>Search for a City...</h2>
+       <form class="card-body" id="city-search-form">
+         <input class="form-control" name="city-name" id="city-name" type="text" autofocus="true" placeholder="City,State (No spaces)">
+         <button type="submit" class="btn">Search</button>
+         </form>
+
+        <div class="card m-2 list-group">
+          //dynamically add these buttons??
+              <button type="button" class="list-group-item list-group-item-action">A second item</button>
+              <button type="button" class="list-group-item list-group-item-action">A third button item</button>
+              <button type="button" class="list-group-item list-group-item-action">A fourth button item</button>
+              <button type="button" class="list-group-item list-group-item-action">A second item</button>
+              <button type="button" class="list-group-item list-group-item-action">A third button item</button>
+              <button type="button" class="list-group-item list-group-item-action">A fourth button item</button>
+            </div>
       </div>
+
 
       <div class="col-12 col-md-8 results">
-        <h2 class="h2">Search City Result Name and Date</h2>
-      </div>
-    </div>
 
-    <div class="container">
+      <div>
+
+        <div class="row align-items-left main-result">
+          <div class="card  m-1">
+            <div class="card-body p-0">
+              <h2 class="card-header main-header p-1">Search City Result Name and Date</h2>
+
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">An item</li>
+                <li class="list-group-item">A second item</li>
+                <li class="list-group-item">A third item</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+       
+
+
+    <!-- <div class="container"> -->
       <!--change these to dynamic  -->
-      <div class="row row-cols-1 row-cols-md-5">
+      <div class="row justify-content-around">
+      <!-- <div class="row row-cols-1 row-cols-md-5"> -->
         <!-- <div class="card-group"> -->
-        <div class="col">
-          <div class="card m-2">
+        <!-- <div class="col"> -->
+          <div class="card col-12 col-md-2 m-1">
             <div class="card-body p-0">
               <h4 class="card-header p-1">first date</h4>
               <p class="card-text p-1">Icon will go here</p>
@@ -52,12 +82,12 @@
                 <li class="list-group-item">A second item</li>
                 <li class="list-group-item">A third item</li>
               </ul>
-            </div>
+            <!-- </div> -->
           </div>
         </div>
 
-        <div class="col">
-          <div class="card m-2">
+        <!-- <div class="col"> -->
+          <div class="card col-12 col-md-2 m-1">
             <div class="card-body p-0">
               <h4 class="card-header p-1">first date</h4>
               <p class="card-text p-1">Icon will go here</p>
@@ -66,12 +96,12 @@
                 <li class="list-group-item">A second item</li>
                 <li class="list-group-item">A third item</li>
               </ul>
-            </div>
+            <!-- </div> -->
           </div>
         </div>
 
-        <div class="col">
-          <div class="card m-2">
+        <!-- <div class="col"> -->
+          <div class="card col-12 col-md-2 m-1">
             <div class="card-body p-0">
               <h4 class="card-header p-1">first date</h4>
               <p class="card-text p-1">Icon will go here</p>
@@ -80,11 +110,11 @@
                 <li class="list-group-item">A second item</li>
                 <li class="list-group-item">A third item</li>
               </ul>
-            </div>
+            <!-- </div> -->
           </div>
         </div>
-        <div class="col">
-          <div class="card m-2">
+        <!-- <div class="col"> -->
+          <div class="card col-12 col-md-2 m-1">
             <div class="card-body p-0">
               <h4 class="card-header p-1">first date</h4>
               <p class="card-text p-1">Icon will go here</p>
@@ -93,29 +123,29 @@
                 <li class="list-group-item">A second item</li>
                 <li class="list-group-item">A third item</li>
               </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="card m-2">
-            <div class="card-body p-0">
-              <h4 class="card-header p-1">first date</h4>
-              <p class="card-text p-1">Icon will go here</p>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">An item</li>
-                <li class="list-group-item">A second item</li>
-                <li class="list-group-item">A third item</li>
-              </ul>
-            </div>
+            <!-- </div> -->
           </div>
         </div>
 
-      </div>
+        <!-- <div class="col"> -->
+          <div class="card col-12 col-md-2 m-1">
+            <div class="card-body p-0">
+              <h4 class="card-header p-1">first date</h4>
+              <p class="card-text p-1">Icon will go here</p>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">An item</li>
+                <li class="list-group-item">A second item</li>
+                <li class="list-group-item">A third item</li>
+              </ul>
+             </div>
+          </div>
+        </div>
+    </div>
 
     </div>
   </div>
 
+</main>
   <!--  VERSION 1  ---
     
     <div class="container-fluid">

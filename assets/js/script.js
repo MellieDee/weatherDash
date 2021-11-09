@@ -1,5 +1,4 @@
 
-
 /***PSEUDO CODE FOR WEATHER APP ***
 
 do I need to geocode first?? then enter that data intot he api weather call??
@@ -30,7 +29,10 @@ ceate those dynamic HTML
 
 What about cities iwht ' in the names??
 
-- ************************************ */
+- 
+
+
+STYLES:   Badges for UV or is that part of API?  ************************************ */
 
 
 
@@ -51,16 +53,18 @@ fetch(requestCoordinates)
     }
   })
 
+//lines 105/106 gitit done?? 2 variables?
+  var getWeatherData = function(latLog) {
+  var weatherUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude=minutely,hourly&units=imperial&appid=299ebedfe3926f8c9e100c54f9104d93';
 
-  var weatherUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude={minutely,hourly}&units{imperial}&appid={299ebedfe3926f8c9e100c54f9104d93}';
+  fetch(weatherUrl).then(function(response) {
 
-  fetch(weatherUrl)
-    .then(function (response) {
-      if(response.ok) {
+    if(response.ok) {
       response.json().then(function (data) {
         console.log(data);
-      })
-    }
-    })
-  
-
+      });
+    } else {
+      alert('Server Error');
+    };
+  });
+  }
