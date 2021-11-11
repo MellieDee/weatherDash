@@ -108,21 +108,28 @@ var getWeather = function (cityName) {
           //console.log as check then display in main card
           console.log(data);
 
-          //create li elements for data current points
+
+          //*** DYNAMICALLY CREATE ELEMENTS for MAIN CARD   ***
+
           var currentCityName = document.getElementById("current-city-name")
 
-          var today =  data.dt
+          var today = data.dt
           var date = new Date(today * 1000);
           var dateCity = date.textContent = (moment().format("MM/DD/YYYY"));
-          // console.log(moment().toDate());
-          var currentIcon = document.createElement("span");
+
+          var currentIconContainer = document.createElement("div");
+          var currentIcon = document.createElement("i");
+          var currentIconContainer = document.createElement("div");
           var currentTemp = document.createElement("li");
+          var degreeF = document.createElement("span");
           var currentWind = document.createElement("li");
           var currentHumidity = document.createElement("li");
           // var currentUv = document.createElement("li");
 
-          currentIcon
+          //***  Assign CLASSES & IDs to ELEMENTS    ***
           currentCityName.classList = "card-header main-header";
+          currentIcon.classList = "weather-icon";
+          currentIconContainer.setAttribute("id", "icon")
           // currentCityName.setAttribute("id", "current-city");
           //consolidate these later
           currentTemp.classList = "list-group-item";
@@ -130,15 +137,26 @@ var getWeather = function (cityName) {
           currentHumidity.classList = "list-group-item";
 
 
-          //set text of li Els
+          //***  Assign CLASSES & IDs to ELEMENTS    ***
           currentCityName.innerHTML = data.name + "   " + dateCity;
-          currentTemp.textContent = "Temp: " + data.main.temp + " F"
+          for (var i = 0; i < data.length; i++) {
+            console.log(data.weather[0].icon)
+          }
+          var iconCode = data.weather[0].icon;
+          // currentIcon.innerHTML = '<img src="http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png">';
+          currentIcon.innerHTML = "<img src='http://openweathermap.org/img/wn/" + iconCode + "@2x.png'>";
+          degreeF.innerHTML = "&#x2109";
+          currentTemp.textContent = "Temp: " + data.main.temp + " " + degreeF.innerHTML;
           currentWind.textContent = "Wind: " + data.wind.speed + " MPH"
           currentHumidity.textContent = "Humidity: " + data.main.humidity + " %"
           // currentUv.textContent = "badge & coor tbd"
 
-          //append to main ul current weather container
-          //appending the dynamically generated li will attach the element as the bottom most child.
+
+
+          //***   APPEND to Continers ***
+          //appending the dynamically generated li will attach the element as the bottom most child
+          currentIconContainer.appendChild(currentIcon)
+          currentCityEl.appendChild(currentIconContainer);
           currentCityEl.appendChild(currentTemp);
           currentCityEl.appendChild(currentWind);
           currentCityEl.appendChild(currentHumidity);
@@ -148,7 +166,7 @@ var getWeather = function (cityName) {
 
       //       console.log(data.name)
       //       for (var i = 0; i < data.length; i++) {
-      //       console.log(data.weather[0].icon)
+      // console.log(data.weather[0].icon)
       //       // }
       //       console.log(data.main.temp);
       //       let currentTemp = (data.main.temp)
@@ -202,15 +220,6 @@ function displaySearchHistory() {
   searchHistoryContainerEl.appendChild(cityEl);
 };
 
-/***CREATE BUTTONS NSTEAD?  ***/
-// var  searchAgainBtnEl = document.createElement("button");
-// searchAgainBtnEl.classList = "list-group-item searchAgainBtn btn";
-// searchAgainBtnEl.setAttribute("type", "submit");
-// searchAgainBtnEl.textContent = cityName;
-// searchHistoryContainerEl.appendChild(searchAgainBtnEl)
-
-
-
 
 // /**** STEP 1 - Get City Coordinates: ****/
 // var getCityCoordinates = function () {
@@ -253,6 +262,7 @@ function displaySearchHistory() {
 // }
 
 
+
 userFormEl.addEventListener("submit", formSubmitHandler);
 
 
@@ -265,6 +275,18 @@ userFormEl.addEventListener("submit", formSubmitHandler);
 
 
 /***SAVE FOR LATER USE MAYBE???**** */
+
+
+
+/***CREATE BUTTONS INSTEAD for HISTORY?  ***/
+// var  searchAgainBtnEl = document.createElement("button");
+// searchAgainBtnEl.classList = "list-group-item searchAgainBtn btn";
+// searchAgainBtnEl.setAttribute("type", "submit");
+// searchAgainBtnEl.textContent = cityName;
+// searchHistoryContainerEl.appendChild(searchAgainBtnEl)
+
+
+
 
 // let currentDayEl = document.querySelector("#currentDay");
 // currentDayEl.textContent = (moment().format("MM/DD/YYYY")

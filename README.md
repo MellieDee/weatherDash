@@ -72,3 +72,7 @@ https://idratherbewriting.com/learnapidoc/docapis_access_json_values.html
 
 button?
 https://www.encodedna.com/javascript/dynamically-create-html-elements-using-createElement-method.htm
+
+API- current icons
+https://openweathermap.org/weather-conditions
+https://stackoverflow.com/questions/44177417/how-to-display-openweathermap-weather-icon
