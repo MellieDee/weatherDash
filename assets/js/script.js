@@ -26,19 +26,23 @@ save also list and main summary to local storage
 set button action to histrpy ist
 ceate those dynamic HTML
 
-What about cities iwht ' in the names or 
+What about cities with ' in the names or 
 
 trim removes white spaces for two words two words???
 create error if no comma
 make state a drop-down menu?
 what about change to caps/lowercase for api
-
-casll with 
-
+ 
 if no commoaa then assume it is a  just a city
 
 
-STYLES:   Badges for UV or is that part of API?  ************************************ */
+STYLES:   Badges for UV or is that part of API? 
+go back fix:
+ colors
+ background images?
+
+
+/************************************ */
 
 
 /****  VARIABLES    ******/
@@ -56,12 +60,13 @@ let formSubmitHandler = function (event) {
 
   //get city name from input field el
   let cityName = cityNameInputEl.value.replace(/\s/g, '');
-  console.log(cityName);
+  //console cityName later will be displayed in main card
+  // console.log(cityName);
   if (cityName) {
     //get weather data using cityName var in getWeather function
     getWeather(cityName);
     //clear input field
-    cityNameInputEl.value = "";
+    // cityNameInputEl.value = "";
   } else {
     //update to modal later
     alert("Please enter a valid US City name.");
@@ -94,7 +99,17 @@ var getWeather = function (cityName) {
         .then(function (data) {
           console.log(data);
           // for (var i = 0; i < data.length; i++) {
-          //   console.log(data[i].lat);
+          //console.log(data[i].lat);
+          //console.log as check then display in main card
+          console.log(data.name)
+          // for (var i = 0; i < data.length; i++) {
+          console.log(data.weather[0].icon)
+          // }
+          console.log(data.main.temp);
+          console.log(data.wind.speed);
+          console.log(data.main.humidity);
+          // console.log(data.UV??)
+        //}
         })
     })
 };

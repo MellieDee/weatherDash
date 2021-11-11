@@ -66,3 +66,6 @@ https://colorhunt.co/palette/15274436759161d2b49dfdc7
 
 for upper info:
 https://stackabuse.com/javascript-check-if-first-letter-of-a-string-is-upper-case/
+
+accessing data from JSON
+https://idratherbewriting.com/learnapidoc/docapis_access_json_values.html
