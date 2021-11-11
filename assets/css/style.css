@@ -33,25 +33,37 @@ body {
   font-size: 1.8em;
 } 
 
-.h2 {
+/* .h2 {
   padding: 1em;
-}
+} */
 
 .h3 {
   font-size: 1.5em;
   color: #152744; 
 }
+
 .card-header{
   font-size: 1.2em;
   background-color:#9CE66B;
+  min-height: 1.5em;
+}
+
+.main-header {
+  font-size: 1.75em;
+  font-weight: bold;
 }
 .search, .results {
   border: 1px solid white;
 }
 
+.main-card {
+  min-height: 175px;
+}
+
  .card-body, .card-text, .list-group-item {
-  background-color: #152744;
-  color: #FFFEF8;
+  /* background-color: #152744; */
+  color: #152744;
+  border: 2px solid #152744;
 } 
 .card-body {
   padding: 1em;
@@ -81,10 +93,10 @@ body {
   border: 1px solid #F1C15A;
   margin: 0.3em;
 }
-
+/* 
 .list-group-item {
   padding: 0.6em 1em;
-}
+} */
 /*
 .hero {
     display: block;

@@ -69,3 +69,6 @@ https://stackabuse.com/javascript-check-if-first-letter-of-a-string-is-upper-cas
 
 accessing data from JSON
 https://idratherbewriting.com/learnapidoc/docapis_access_json_values.html
+
+button?
+https://www.encodedna.com/javascript/dynamically-create-html-elements-using-createElement-method.htm

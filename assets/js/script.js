@@ -35,21 +35,27 @@ what about change to caps/lowercase for api
  
 if no commoaa then assume it is a  just a city
 
+USE taskinator Pro to save all data mpoints??
+
 
 STYLES:   Badges for UV or is that part of API? 
 go back fix:
  colors
  background images?
+ convert to function() { as opposed to  var XX = function}
 
 
 /************************************ */
 
 
-/****  VARIABLES    ******/
+/****     VARIABLES    ******/
 var userFormEl = document.querySelector("#city-search-form");
 var cityNameInputEl = document.querySelector("#city-name");
-// var searchHistoryContainerEl = document.querySelector("#search-history-container");
-// var currentCityEl = document.querySelector("#current-date")
+var searchHistoryContainerEl = document.querySelector("#search-history-container");
+var previousCityTerm = document.querySelector("#previous-city");
+var currentCityEl = document.querySelector("#current-city-details");
+
+
 
 
 /*****    EVENT HANDLERS START *****/
@@ -71,9 +77,11 @@ let formSubmitHandler = function (event) {
     //update to modal later
     alert("Please enter a valid US City name.");
   };
+  console.log(cityName);
+  return cityName;
 };
 
-//possibly add funciton to account for state reference and comma
+//possibly add function to account for state reference and comma
 //convert state to Upper
 // let cityState = cityName.split(',')[1];
 // console.log(cityState);
@@ -90,30 +98,118 @@ let formSubmitHandler = function (event) {
 var getWeather = function (cityName) {
 
   var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&appid=299ebedfe3926f8c9e100c54f9104d93";
-  console.log(apiUrl);
+  // console.log(apiUrl);
 
   //make request to URL
   fetch(apiUrl)
     .then(function (response) {
       response.json()
         .then(function (data) {
-          console.log(data);
-          // for (var i = 0; i < data.length; i++) {
-          //console.log(data[i].lat);
           //console.log as check then display in main card
-          console.log(data.name)
-          // for (var i = 0; i < data.length; i++) {
-          console.log(data.weather[0].icon)
-          // }
-          console.log(data.main.temp);
-          console.log(data.wind.speed);
-          console.log(data.main.humidity);
-          // console.log(data.UV??)
-        //}
-        })
-    })
+          console.log(data);
+
+          //create li elements for data current points
+          var currentCityName = document.getElementById("current-city-name")
+
+          var today =  data.dt
+          var date = new Date(today * 1000);
+          var dateCity = date.textContent = (moment().format("MM/DD/YYYY"));
+          // console.log(moment().toDate());
+          var currentIcon = document.createElement("span");
+          var currentTemp = document.createElement("li");
+          var currentWind = document.createElement("li");
+          var currentHumidity = document.createElement("li");
+          // var currentUv = document.createElement("li");
+
+          currentIcon
+          currentCityName.classList = "card-header main-header";
+          // currentCityName.setAttribute("id", "current-city");
+          //consolidate these later
+          currentTemp.classList = "list-group-item";
+          currentWind.classList = "list-group-item";
+          currentHumidity.classList = "list-group-item";
+
+
+          //set text of li Els
+          currentCityName.innerHTML = data.name + "   " + dateCity;
+          currentTemp.textContent = "Temp: " + data.main.temp + " F"
+          currentWind.textContent = "Wind: " + data.wind.speed + " MPH"
+          currentHumidity.textContent = "Humidity: " + data.main.humidity + " %"
+          // currentUv.textContent = "badge & coor tbd"
+
+          //append to main ul current weather container
+          //appending the dynamically generated li will attach the element as the bottom most child.
+          currentCityEl.appendChild(currentTemp);
+          currentCityEl.appendChild(currentWind);
+          currentCityEl.appendChild(currentHumidity);
+          // currentCityEl.appendChild(currentUv);
+          // };
+        });
+
+      //       console.log(data.name)
+      //       for (var i = 0; i < data.length; i++) {
+      //       console.log(data.weather[0].icon)
+      //       // }
+      //       console.log(data.main.temp);
+      //       let currentTemp = (data.main.temp)
+      //       // console.log(data.wind.speed);
+      //       // console.log(data.main.humidity);
+      //       // console.log(data.UV??)
+
+      //       let weatherInfo = []
+      //       weatherInfo.push("currentTemp")
+      //       console.log(weatherInfo);
+
+      displaySearchHistory();
+    });
+  // getWeather();
 };
-// getWeather();
+
+/****   STEP 2: Display Data  A) Current City Weather ******/
+
+// function displayWeather() {
+// //currentCityEl is Ul
+// //create li T, W, H, uv ==> append each to ul
+// //do I set in size so field is always there and then just at varText for main card?
+// var currentTempEl = document.createElement("li");
+// currentTempEl.classList = "list-group-item"
+// currentTempEl.setAttribute("id", "temp");
+// currentTempEl.textContent = data.main.temp;
+
+// currentCityEl.appendChild(currentTempEl);
+// }
+
+function displaySearchHistory() {
+
+  // if (cities.length === 0) {
+  //   searchHistoryContainerEl.textContent = "Sorry - couldn't find weather for that city. Check spelling or add 2-letter state abbreviation?";
+  //   return;
+  // }
+  // previousCityTerm.textContent = searchTerm
+
+  //create container for each city
+  var cityEl = document.createElement("a");
+  cityEl.classList = "list-group-item";
+
+  cityEl.setAttribute("href", "https://api.openweathermap.org/data/2.5/weather?q=sacramento&units=imperial&appid=299ebedfe3926f8c9e100c54f9104d93");
+
+  //create spanEl to hold the city name
+  var previousCityTitle = document.createElement("span");
+  previousCityTitle.textContent = "need to pull from input - create button as new input and run get weather again??";
+
+  //append to containers
+  cityEl.appendChild(previousCityTitle);
+  searchHistoryContainerEl.appendChild(cityEl);
+};
+
+/***CREATE BUTTONS NSTEAD?  ***/
+// var  searchAgainBtnEl = document.createElement("button");
+// searchAgainBtnEl.classList = "list-group-item searchAgainBtn btn";
+// searchAgainBtnEl.setAttribute("type", "submit");
+// searchAgainBtnEl.textContent = cityName;
+// searchHistoryContainerEl.appendChild(searchAgainBtnEl)
+
+
 
 
 // /**** STEP 1 - Get City Coordinates: ****/
@@ -158,3 +254,19 @@ var getWeather = function (cityName) {
 
 
 userFormEl.addEventListener("submit", formSubmitHandler);
+
+
+
+
+
+
+
+
+
+
+/***SAVE FOR LATER USE MAYBE???**** */
+
+// let currentDayEl = document.querySelector("#currentDay");
+// currentDayEl.textContent = (moment().format("MM/DD/YYYY")
+
+// console.log(moment().toDate());

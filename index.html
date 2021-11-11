@@ -18,8 +18,9 @@
 
 <body>
 
-  <!--switch to an aside or hor git-it-done is?? instead of put in collumn 2 pput just below it?-->
+  <!--switch to an aside or hor git-it-done is?? instead of put in column 2 pput just below it?-->
 
+  <!-- heading: -->
   <div class="h1 text-center">
     <h1 class="h1">Weather Dashboard</h1>
   </div>
@@ -28,6 +29,7 @@
   <div class="container-fluid">
     <div class="row">
 
+    <!--  Input Form STARTS  -->
       <div class="card search col-12 col-md-4">
         <h2 class=card-title>Search for a City in the US...</h2>
 
@@ -36,34 +38,34 @@
          <input class="form-control" name="city-name" id="city-name" type="text" autofocus="true" placeholder="Sample, ST">
          <button type="submit" class="btn">Search</button>
         </form>
+  <!---   INPUT FORM ENDS   --->
 
+
+  <!--  SEARCH HISTORY   STARTS    -->
         <div class="card m-2 list-group">
-          <h3 class="h3">Search History:</h3>
+          <h3 class="h3">Your Cities:</h3>
           <div class="list-group" id="search-history-container"></div>
         </div>
       </div>
 
 
-          <!-- //dynamically add these buttons?? -->
-              <!-- <button type="button" class="list-group-item list-group-item-action">A second item</button>
-              <button type="button" class="list-group-item list-group-item-action">A third button item</button>
-              <button type="button" class="list-group-item list-group-item-action">A fourth button item</button>
-              <button type="button" class="list-group-item list-group-item-action">A second item</button>
-              <button type="button" class="list-group-item list-group-item-action">A third button item</button>
-              <button type="button" class="list-group-item list-group-item-action">A fourth button item</button> -->
+          <!-- //dynamically add these buttons?? us a hrefs instead?
+               <button type="button" class="list-group-item searchAgain list-group-item-action">A second item</button>-->
+            
 
+<!--   MAIN WEATHER CARD  -->
       <div class="col-12 col-md-8 results">
 
-
-        <div class="row align-items-left main-result">
-          <div class="card  m-1">
+        <div class="row justify-content-around">
+          <div class="card main-card col-12 col-md-2 m-1">
             <div class="card-body p-0">
-              <h2 class="card-header main-header p-1"><span id="current-city current-date"</span></h2>
+              <h2 class="card-header main-header p-1" id="current-city-name"></h2>
 
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">An item</li>
-                <li class="list-group-item">A second item</li>
-                <li class="list-group-item">A third item</li>
+              <ul class="list-group list-group-flush" id="current-city-details">
+                <!-- <li class="list-group-item" id="temp">Temp: </li>
+                <li class="list-group-item" id="wind">A second item</li>
+                <li class="list-group-item" id="humidity">A third item</li>
+                <li class="list-group-item" id="uv-index">A third item</li> -->
               </ul>
 
             </div>
@@ -81,8 +83,9 @@
           <div class="card col-12 col-md-2 m-1">
             <div class="card-body p-0">
               <h4 class="card-header p-1">first date</h4>
-              <p class="card-text p-1">Icon will go here</p>
+
               <ul class="list-group list-group-flush">
+                <li class="list-group-item">icon here</li>
                 <li class="list-group-item">An item</li>
                 <li class="list-group-item">A second item</li>
                 <li class="list-group-item">A third item</li>
@@ -90,8 +93,21 @@
             <!-- </div> -->
           </div>
         </div>
+<!-- 
 
-        <!-- <div class="col"> -->
+          <div class="card col-12 col-md-2 m-1">
+            <div class="card-body p-0">
+              <h4 class="card-header p-1">first date</h4>
+              <p class="card p-1">Icon will go here</p>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">An item</li>
+                <li class="list-group-item">A second item</li>
+                <li class="list-group-item">A third item</li>
+              </ul>
+      
+          </div>
+        </div>
+
           <div class="card col-12 col-md-2 m-1">
             <div class="card-body p-0">
               <h4 class="card-header p-1">first date</h4>
@@ -101,11 +117,10 @@
                 <li class="list-group-item">A second item</li>
                 <li class="list-group-item">A third item</li>
               </ul>
-            <!-- </div> -->
+
           </div>
         </div>
 
-        <!-- <div class="col"> -->
           <div class="card col-12 col-md-2 m-1">
             <div class="card-body p-0">
               <h4 class="card-header p-1">first date</h4>
@@ -115,24 +130,10 @@
                 <li class="list-group-item">A second item</li>
                 <li class="list-group-item">A third item</li>
               </ul>
-            <!-- </div> -->
-          </div>
-        </div>
-        <!-- <div class="col"> -->
-          <div class="card col-12 col-md-2 m-1">
-            <div class="card-body p-0">
-              <h4 class="card-header p-1">first date</h4>
-              <p class="card-text p-1">Icon will go here</p>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">An item</li>
-                <li class="list-group-item">A second item</li>
-                <li class="list-group-item">A third item</li>
-              </ul>
-            <!-- </div> -->
           </div>
         </div>
 
-        <!-- <div class="col"> -->
+        < <div class="col"> 
           <div class="card col-12 col-md-2 m-1">
             <div class="card-body p-0">
               <h4 class="card-header p-1">first date</h4>
@@ -143,7 +144,7 @@
                 <li class="list-group-item">A third item</li>
               </ul>
              </div>
-          </div>
+          </div> -->
         </div>
     </div>
 
@@ -209,6 +210,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Roboto&display=swap"
     rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
   <script src="./assets/js/script.js"></script>
 
