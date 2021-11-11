@@ -34,6 +34,11 @@ create error if no comma
 make state a drop-down menu?
 what about change to caps/lowercase for api
 
+casll with 
+
+if no commoaa then assume it is a  just a city
+
+
 STYLES:   Badges for UV or is that part of API?  ************************************ */
 
 
@@ -61,43 +66,51 @@ let cityName = cityNameInputEl.value.replace(/\s/g, '');
   console.log(cityStateUp)
 
 
+/****  STEP 1: Get Weather Data  By City  *******/
 
-var getCityCoordinates = function () {
+  api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
 
-  var requestCoordinates = 'http://api.openweathermap.org/geo/1.0/direct?q=' + cityName + ',USA&limit=1&appid=299ebedfe3926f8c9e100c54f9104d93';
-  console.log(requestCoordinates);
 
-  fetch(requestCoordinates)
-    .then(function (response) {
-      return response.json();
-    })
 
-    .then(function (data) {
-      console.log(data);
-     for (var i = 0; i < data.length; i++) {
-       console.log(data[i].lat);
-       console.log(data[i].lon);
-      }
-    })
+// /**** STEP 1 - Get City Coordinates: ****/
+// var getCityCoordinates = function () {
 
-};
- getCityCoordinates();
-}
-//lines 105/106 gitit done?? 2 variables? save l& L with city name
-var getWeatherData = function (lat, lon) {
-  var weatherUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude=minutely,hourly&units=imperial&appid=299ebedfe3926f8c9e100c54f9104d93';
+//   var requestCoordinates = 'http://api.openweathermap.org/geo/1.0/direct?q=' + cityName + ',USA&limit=1&appid=299ebedfe3926f8c9e100c54f9104d93';
+//   console.log(requestCoordinates);
 
-  fetch(weatherUrl).then(function (response) {
+//   fetch(requestCoordinates)
+//     .then(function (response) {
+//       return response.json();
+//     })
 
-    if (response.ok) {
-      response.json().then(function (data) {
-        console.log(data);
-      });
-    } else {
-      alert('Server Error');
-    };
-  });
-}
+//     .then(function (data) {
+//       console.log(data);
+//      for (var i = 0; i < data.length; i++) {
+//        console.log(data[i].lat);
+//        console.log(data[i].lon);
+//       }
+//     })
+
+// };
+//  getCityCoordinates();
+// }
+// //lines 105/106 gitit done?? 2 variables? save l& L with city name
+// var getWeatherData = function (lat, lon) {
+//   let latText = 
+//   let
+//   let  weatherUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + latText + '&lon=' + lonText + '&exclude=minutely,hourly&units=imperial&appid=299ebedfe3926f8c9e100c54f9104d93';
+
+//   fetch(weatherUrl).then(function (response) {
+
+//     if (response.ok) {
+//       response.json().then(function (data) {
+//         console.log(data);
+//       });
+//     } else {
+//       alert('Server Error');
+//     };
+//   });
+// }
 
 
 userFormEl.addEventListener("submit", formSubmitHandler);
