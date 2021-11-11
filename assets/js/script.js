@@ -1,4 +1,3 @@
-
 /***PSEUDO CODE FOR WEATHER APP ***
 
 do I need to geocode first?? then enter that data intot he api weather call??
@@ -45,31 +44,61 @@ STYLES:   Badges for UV or is that part of API?  *******************************
 /****  VARIABLES    ******/
 var userFormEl = document.querySelector("#city-search-form");
 var cityNameInputEl = document.querySelector("#city-name");
-var searchHistoryContainerEl = document.querySelector("#search-history-container");
-var currentCityEl = document.querySelector("#current-date")
+// var searchHistoryContainerEl = document.querySelector("#search-history-container");
+// var currentCityEl = document.querySelector("#current-date")
 
 
 /*****    EVENT HANDLERS START *****/
 let formSubmitHandler = function (event) {
   event.preventDefault();
+  //confirm desired event
+  // console.log(event);
+
   //get city name from input field el
-  console.log(event);
-
-  
-let cityName = cityNameInputEl.value.replace(/\s/g, '');
+  let cityName = cityNameInputEl.value.replace(/\s/g, '');
   console.log(cityName);
-  //check if state is caps; if not, convert
- let cityState = cityName.split(',')[1];
-  console.log(cityState);
+  if (cityName) {
+    //get weather data using cityName var in getWeather function
+    getWeather(cityName);
+    //clear input field
+    cityNameInputEl.value = "";
+  } else {
+    //update to modal later
+    alert("Please enter a valid US City name.");
+  };
+};
 
-  let cityStateUp = cityState.toUpperCase();
-  console.log(cityStateUp)
+//possibly add funciton to account for state reference and comma
+//convert state to Upper
+// let cityState = cityName.split(',')[1];
+// console.log(cityState);
+// if (cityState.length > 2){
+//   alert("Please use 2 character state abbreviation")
+// } else {
+//   let cityStateUp = cityState.toUpperCase();
+//   console.log(cityStateUp)
+// }
+// };
 
 
 /****  STEP 1: Get Weather Data  By City  *******/
+var getWeather = function (cityName) {
 
-  api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
+  var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&appid=299ebedfe3926f8c9e100c54f9104d93";
+  console.log(apiUrl);
 
+  //make request to URL
+  fetch(apiUrl)
+    .then(function (response) {
+      response.json()
+        .then(function (data) {
+          console.log(data);
+          // for (var i = 0; i < data.length; i++) {
+          //   console.log(data[i].lat);
+        })
+    })
+};
+// getWeather();
 
 
 // /**** STEP 1 - Get City Coordinates: ****/
