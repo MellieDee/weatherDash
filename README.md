@@ -63,3 +63,6 @@ api.openweathermap.org.
 https://www.iso.org/iso-3166-country-codes.html
 
 https://colorhunt.co/palette/15274436759161d2b49dfdc7
+
+for upper info:
+https://stackabuse.com/javascript-check-if-first-letter-of-a-string-is-upper-case/

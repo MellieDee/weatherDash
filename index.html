@@ -28,39 +28,44 @@
   <div class="container-fluid">
     <div class="row">
 
-      <div class="card search col-12 col-md-4 col-lg-4 ">
-        <h2 class=card-title>Search for a City...</h2>
-       <form class="card-body" id="city-search-form">
-         <input class="form-control" name="city-name" id="city-name" type="text" autofocus="true" placeholder="City,State (No spaces)">
+      <div class="card search col-12 col-md-4">
+        <h2 class=card-title>Search for a City in the US...</h2>
+
+        <form class="card-body" id="city-search-form">
+          <label class="form-label" for="city">City, State Abbreviation</label>
+         <input class="form-control" name="city-name" id="city-name" type="text" autofocus="true" placeholder="Sample, ST">
          <button type="submit" class="btn">Search</button>
-         </form>
+        </form>
 
         <div class="card m-2 list-group">
-          //dynamically add these buttons??
-              <button type="button" class="list-group-item list-group-item-action">A second item</button>
-              <button type="button" class="list-group-item list-group-item-action">A third button item</button>
-              <button type="button" class="list-group-item list-group-item-action">A fourth button item</button>
-              <button type="button" class="list-group-item list-group-item-action">A second item</button>
-              <button type="button" class="list-group-item list-group-item-action">A third button item</button>
-              <button type="button" class="list-group-item list-group-item-action">A fourth button item</button>
-            </div>
+          <h3 class="h3">Search History:</h3>
+          <div class="list-group" id="search-history-container"></div>
+        </div>
       </div>
 
 
+          <!-- //dynamically add these buttons?? -->
+              <!-- <button type="button" class="list-group-item list-group-item-action">A second item</button>
+              <button type="button" class="list-group-item list-group-item-action">A third button item</button>
+              <button type="button" class="list-group-item list-group-item-action">A fourth button item</button>
+              <button type="button" class="list-group-item list-group-item-action">A second item</button>
+              <button type="button" class="list-group-item list-group-item-action">A third button item</button>
+              <button type="button" class="list-group-item list-group-item-action">A fourth button item</button> -->
+
       <div class="col-12 col-md-8 results">
 
-      <div>
 
         <div class="row align-items-left main-result">
           <div class="card  m-1">
             <div class="card-body p-0">
-              <h2 class="card-header main-header p-1">Search City Result Name and Date</h2>
+              <h2 class="card-header main-header p-1"><span id="current-city current-date"</span></h2>
 
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">An item</li>
                 <li class="list-group-item">A second item</li>
                 <li class="list-group-item">A third item</li>
               </ul>
+
             </div>
           </div>
         </div>

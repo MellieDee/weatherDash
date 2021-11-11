@@ -5,15 +5,23 @@
   text-decoration: none;
 }
 
+html {
+  min-height: 100vh;
+  cursor: default;
+}
+
 
 body {
   /* font-family: 'Open Sans', sans-serif; */
   font-family: 'Roboto', sans-serif;
   font-size: 12px;
+  overflow-x: hidden;
   line-height: 1;
   background-color: #152744
   ; 
   color: white;
+  height: 100vh;
+  width: 98%;
   /* color: #152744; */
 }
 .h1 {
@@ -26,7 +34,6 @@ body {
 } 
 
 .h2 {
-  font-size: 1.7em;
   padding: 1em;
 }
 
@@ -42,12 +49,20 @@ body {
   border: 1px solid white;
 }
 
- .card-body, .list-group-item {
-  background-color: #FFFEF8;
-  color: #152744;
+ .card-body, .card-text, .list-group-item {
+  background-color: #152744;
+  color: #FFFEF8;
 } 
+.card-body {
+  padding: 1em;
+}
 
-.card-title, .card-text, .card-header {
+.card-title {
+  font-size: 2em;
+  margin-top: .6em;
+}
+
+.card-title, .card-header {
   color: #152744;
 }
 
@@ -65,6 +80,10 @@ body {
 .main-result {
   border: 1px solid #F1C15A;
   margin: 0.3em;
+}
+
+.list-group-item {
+  padding: 0.6em 1em;
 }
 /*
 .hero {
