@@ -105,6 +105,10 @@ font-size: 1.1em;
 .previous-cities-card {
   margin: 0 1em;
 }
+
+.list-group-item {
+  font-size: 1em;
+}
 /* 
 .main-header {
   font-size: 1.75em;
@@ -229,11 +233,17 @@ font-size: 1.1em;
   .hero-form h2 {
     font-size: 1.1em;
   }
+  .card-body {
+    padding: 0.3em;
+  }
+  .list-group-item {
+    font-size: 0.6em;
 
-.forecast-card {
+    }
+/* .forecast-card {
     min-width: 18rem;
    max-width: 16rem;
-}
+} */
 
 }
  
@@ -244,14 +254,25 @@ font-size: 1.1em;
     .card-deck {
       margin: 0;
     }
-    .forecast-card {
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      margin-right: -15px;
+      margin-left: -15px;
+    }
+
+    .justify-content-center {
+      justify-content: center!important;
+  }
+     /* .forecast-card {
      min-width: 20rem; 
      margin: 0; 
-     } 
+     }   */
 
-   .list-group-item {
-    font-size: 1em;
-    }
+   /* .list-group-item {
+    font-size: 0.6em;
+    } */
 
   } 
 
@@ -259,12 +280,13 @@ font-size: 1.1em;
     body {
       font-size: 20px;
     }
-    .forecast-card {
+    /* .forecast-card {
      min-width: 8rem;
      margin: 0;
      /* max-width: 10rem; */
-     } 
+     
+/* 
      .list-group-item {
-       font-size: 0.8em;
-     }
+       font-size: 0.6em;
+     } */
     }
