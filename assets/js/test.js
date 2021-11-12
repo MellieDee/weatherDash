@@ -4,6 +4,19 @@ var cityNameInputEl = document.querySelector("#city-name");
 
 // var searchHistoryContainerEl = document.querySelector("#search-history-container");
 var previousCitiesListContainer = document.querySelector("#previous-cities-list-container");
+
+
+          /***   CREATE ELEMENTS ***/
+          var currentIconContainer = document.createElement("div");
+          var currentIcon = document.createElement("i");
+          var currentTemp = document.createElement("li");
+          var degreeF = document.createElement("span");
+          var currentWind = document.createElement("li");
+          var currentHumidity = document.createElement("li");
+          var currentUv = document.createElement("li");
+
+
+
 // var previousCityTerm = document.querySelector("#previous-city");
 var currentCityEl = document.querySelector("#current-city-details");
 var lat = "";
@@ -16,6 +29,13 @@ let formSubmitHandler = function (event) {
   event.preventDefault();
   //confirm desired event
   // console.log(event);
+
+  //clear contents of main weather card to get ready for new data
+  currentTemp.textContent = "Temp: ";
+  currentWind.textContent = "Wind: ";
+  currentHumidity.textContent = "Humidity: ";
+  currentUv.textContent = "UV Index: ";
+
 
   //get city name from input field el
   // let cityName = cityNameInputEl.value.replace(/\s/g, '');
@@ -51,11 +71,11 @@ let formSubmitHandler = function (event) {
 
 // /**** STEP 1 - Get City Coordinates from 5-Day Forecast API Endpoint: ****/
 var getCoord = function (cityName) {
-  // saveCities(cityName);
+   saveCities(cityName);
 
   var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&units=imperial&appid=299ebedfe3926f8c9e100c54f9104d93";
   // var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&appid=299ebedfe3926f8c9e100c54f9104d93";
-  console.log(apiUrl);
+  // console.log(apiUrl);
 
   //make request to URL 5-Day Forecast API Endpoint
   fetch(apiUrl)
@@ -97,37 +117,36 @@ var oneCall = function (lat, lon, name) {
           var date = new Date(today * 1000);
           var dateCity = date.textContent = (moment().format("MM/DD/YYYY"));
 
-          /***   APPEND TO CONTAINERS ***/
-          var currentIconContainer = document.createElement("div");
-          var currentIcon = document.createElement("i");
-          var currentTemp = document.createElement("li");
-          var degreeF = document.createElement("span");
-          var currentWind = document.createElement("li");
-          var currentHumidity = document.createElement("li");
-          var currentUv = document.createElement("li");
 
+          // /***   CREATE ELEMENTS ***/
+          // var currentIconContainer = document.createElement("div");
+          // var currentIcon = document.createElement("i");
+          // var currentTemp = document.createElement("li");
+          // var degreeF = document.createElement("span");
+          // var currentWind = document.createElement("li");
+          // var currentHumidity = document.createElement("li");
+          // var currentUv = document.createElement("li");
 
 
           //***  Assign CLASSES & IDs to ELEMENTS    ***
-          currentCityName.classList = "card-header main-header";
+          // currentCityName.classList = "card-header main-header";
           currentIcon.classList = "weather-icon";
           currentIconContainer.setAttribute("id", "icon")
           // currentCityName.setAttribute("id", "current-city");
-          //consolidate these later
+          //consolidate these later?
           currentTemp.classList = "list-group-item";
           currentWind.classList = "list-group-item";
           currentHumidity.classList = "list-group-item";
           currentUv.classList = "list-group-item";
 
 
-
           //***  Assign CONTENT to ELEMENTS    ***
-          // currentCityName.innerHTML = name + "   " + dateCity;
+          currentCityName.innerHTML = name + "   " + dateCity;
           for (var i = 0; i < data.current.weather.length; i++) {
             console.log(data.current.weather[0].icon)
           }
           var iconCode = data.current.weather[0].icon;
-        
+
 
           currentIcon.innerHTML = "<img src='http://openweathermap.org/img/wn/" + iconCode + "@2x.png' width = '40px'>";
           currentCityName.innerHTML = name + "   " + dateCity + "   " + currentIcon.innerHTML
@@ -146,9 +165,10 @@ var oneCall = function (lat, lon, name) {
           currentCityEl.appendChild(currentWind);
           currentCityEl.appendChild(currentHumidity);
           currentCityEl.appendChild(currentUv);
-        /****     MAIN CARD ENDS      ******/
+          /****     MAIN CARD ENDS      ******/
 
-        /***   5-DAY FORECAST DYNAMIC SETUP BEGINS ***/
+
+          /***   5-DAY FORECAST DYNAMIC SETUP BEGINS ***/
 
 
 
@@ -156,6 +176,11 @@ var oneCall = function (lat, lon, name) {
     })
 
   //set up cards dynamically with for loop
+}
+
+var saveCities = function (cityName) {
+  previousCities.push(cityName)
+  localStorage.setItem("city", JSON.stringify(previousCities))
 }
 
 

@@ -32,9 +32,12 @@
 
           <form class="card-body hero-form" id="city-search-form">
             <h2> Search for a city in the US...</h2>
+
             <label hidden class="form-label" display="none" for="city"></label>
+
             <input class="form-control" name="city-name" id="city-name" type="text" autofocus="true"
               placeholder="City Name">
+
             <button type="submit" class="btn">Search</button>
           <!-- </form> -->
 
@@ -44,7 +47,7 @@
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Your Cities
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+             <div class="dropdown-menu" id="previous-cities-list-container" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item" href="#">City 1</a>
               <a class="dropdown-item" href="#">City 2</a>
               <a class="dropdown-item" href="#">City 3</a>
@@ -60,12 +63,12 @@
         <div class="col-12 col-md-6 results">
           <div class="card main-card">
             <div class="card-body main-card-body results">
-              <h2 class="card-header main-card-title">City Weather:</h2>
-              <ul class="list-group main">
-                <li class="list-group-item" id="temp">Temp:</li>
+              <h2 class="card-header main-card-title" id="current-city-name">City Weather:</h2>
+              <ul class="list-group main" id="current-city-details">
+                <!-- <li class="list-group-item" id="temp">Temp:</li>
                 <li class="list-group-item" id="wind">Wind:</li>
                 <li class="list-group-item" id="humidity">Humidity:</li>
-                <li class="list-group-item" id="uv">UV Index:</li>
+                <li class="list-group-item" id="uv">UV Index:</li> -->
               </ul>
             </div>
           </div>
