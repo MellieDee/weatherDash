@@ -68,7 +68,6 @@ let formSubmitHandler = function (event) {
   //confirm desired event
   // console.log(event);
 
-
   //get city name from input field el
   // let cityName = cityNameInputEl.value.replace(/\s/g, '');
   let cityName = cityNameInputEl.value;
@@ -123,7 +122,6 @@ var getWeather = function (cityName) {
           var date = new Date(today * 1000);
           var dateCity = date.textContent = (moment().format("MM/DD/YYYY"));
 
-          /** */
           var currentIconContainer = document.createElement("div");
           var currentIcon = document.createElement("i");
           var currentIconContainer = document.createElement("div");
