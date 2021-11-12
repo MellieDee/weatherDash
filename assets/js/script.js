@@ -51,10 +51,14 @@ go back fix:
 /****     VARIABLES    ******/
 var userFormEl = document.querySelector("#city-search-form");
 var cityNameInputEl = document.querySelector("#city-name");
-var searchHistoryContainerEl = document.querySelector("#search-history-container");
-var previousCityTerm = document.querySelector("#previous-city");
-var currentCityEl = document.querySelector("#current-city-details");
 
+// var searchHistoryContainerEl = document.querySelector("#search-history-container");
+var previousCitiesListContainer = document.querySelector("#previous-cities-list-container");
+// var previousCityTerm = document.querySelector("#previous-city");
+var currentCityEl = document.querySelector("#current-city-details");
+var lat = "";
+var lon = "";
+var previousCities = []
 
 
 
@@ -64,15 +68,18 @@ let formSubmitHandler = function (event) {
   //confirm desired event
   // console.log(event);
 
+
   //get city name from input field el
-  let cityName = cityNameInputEl.value.replace(/\s/g, '');
+  // let cityName = cityNameInputEl.value.replace(/\s/g, '');
+  let cityName = cityNameInputEl.value;
+
   //console cityName later will be displayed in main card
   // console.log(cityName);
   if (cityName) {
     //get weather data using cityName var in getWeather function
     getWeather(cityName);
     //clear input field
-    // cityNameInputEl.value = "";
+    cityNameInputEl.value = "";
   } else {
     //update to modal later
     alert("Please enter a valid US City name.");
@@ -96,7 +103,7 @@ let formSubmitHandler = function (event) {
 
 /****  STEP 1: Get Weather Data  By City  *******/
 var getWeather = function (cityName) {
-
+  saveCities(cityName);
   var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&appid=299ebedfe3926f8c9e100c54f9104d93";
   // console.log(apiUrl);
 
@@ -110,13 +117,13 @@ var getWeather = function (cityName) {
 
 
           //*** DYNAMICALLY CREATE ELEMENTS for MAIN CARD   ***
-
           var currentCityName = document.getElementById("current-city-name")
 
           var today = data.dt
           var date = new Date(today * 1000);
           var dateCity = date.textContent = (moment().format("MM/DD/YYYY"));
 
+          /** */
           var currentIconContainer = document.createElement("div");
           var currentIcon = document.createElement("i");
           var currentIconContainer = document.createElement("div");
@@ -137,14 +144,17 @@ var getWeather = function (cityName) {
           currentHumidity.classList = "list-group-item";
 
 
-          //***  Assign CLASSES & IDs to ELEMENTS    ***
+          //***  Assign CONTENT to ELEMENTS    ***
           currentCityName.innerHTML = data.name + "   " + dateCity;
           for (var i = 0; i < data.length; i++) {
             console.log(data.weather[0].icon)
           }
           var iconCode = data.weather[0].icon;
           // currentIcon.innerHTML = '<img src="http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png">';
+
           currentIcon.innerHTML = "<img src='http://openweathermap.org/img/wn/" + iconCode + "@2x.png'>";
+
+
           degreeF.innerHTML = "&#x2109";
           currentTemp.textContent = "Temp: " + data.main.temp + " " + degreeF.innerHTML;
           currentWind.textContent = "Wind: " + data.wind.speed + " MPH"
@@ -153,8 +163,7 @@ var getWeather = function (cityName) {
 
 
 
-          //***   APPEND to Continers ***
-          //appending the dynamically generated li will attach the element as the bottom most child
+          //***   APPEND to Containers to end of list ie most bottom child***
           currentIconContainer.appendChild(currentIcon)
           currentCityEl.appendChild(currentIconContainer);
           currentCityEl.appendChild(currentTemp);
@@ -162,26 +171,91 @@ var getWeather = function (cityName) {
           currentCityEl.appendChild(currentHumidity);
           // currentCityEl.appendChild(currentUv);
           // };
+
+
+          oneCall(data.coord.lat, data.coord.lon)
         });
+    })
+}
 
-      //       console.log(data.name)
-      //       for (var i = 0; i < data.length; i++) {
-      // console.log(data.weather[0].icon)
-      //       // }
-      //       console.log(data.main.temp);
-      //       let currentTemp = (data.main.temp)
-      //       // console.log(data.wind.speed);
-      //       // console.log(data.main.humidity);
-      //       // console.log(data.UV??)
 
-      //       let weatherInfo = []
-      //       weatherInfo.push("currentTemp")
-      //       console.log(weatherInfo);
+var oneCall = function (lat, lon) {
+  var oneCallUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly&appid=299ebedfe3926f8c9e100c54f9104d93";
+  console.log(oneCallUrl)
 
-      displaySearchHistory();
-    });
-  // getWeather();
-};
+  fetch(oneCallUrl)
+    .then(function (response) {
+      response.json()
+        .then(function (data) {
+          //console.log as check then display in main card
+          console.log(data);
+        })
+    })
+
+  //set up cards dynamically with for loop
+}
+
+/**** SET CITY NAMES TO LOCAL STORAGE   ***/
+var saveCities = function (cityName) {
+  previousCities.push(cityName)
+  localStorage.setItem("city", JSON.stringify(previousCities))
+}
+
+var getPreviousCities = function () {
+  //getting KEY from local storage and Key has value of the ARRAY
+  var previousCityArray = JSON.parse(localStorage.getItem("city"));
+
+  for (var i = 0; i < previousCityArray.length; i++) {
+
+    var previousCityEl = document.createElement("button");
+    previousCityEl.setAttribute("type", "button");
+    previousCityEl.classList = "list-group-item btn previousCityBtn";
+    previousCityEl.textContent = previousCityArray[i];
+
+   previousCitiesListContainer.appendChild(previousCityEl);
+  }
+
+}
+// function displaySearchHistory() {
+
+  // if (cities.length === 0) {
+  //   searchHistoryContainerEl.textContent = "Sorry - couldn't find weather for that city. Check spelling or add 2-letter state abbreviation?";
+  //   return;
+  // }
+  // previousCityTerm.textContent = searchTerm
+
+  //create container for each city
+//   ;
+//   cityEl.classList = "list-group-item btn peviousBtn";
+
+//   cityEl.setAttribute("href", "https://api.openweathermap.org/data/2.5/weather?q=sacramento&units=imperial&appid=299ebedfe3926f8c9e100c54f9104d93");
+
+//   //create spanEl to hold the city name
+//   var previousCityTitle = document.createElement("span");
+//   previousCityTitle.textContent = "need to pull from input - create button as new input and run get weather again??";
+
+//   //append to containers
+//   cityEl.appendChild(previousCityTitle);
+//   searchHistoryContainerEl.appendChild(cityEl);
+// };
+
+//       console.log(data.name)
+//       for (var i = 0; i < data.length; i++) {
+// console.log(data.weather[0].icon)
+//       // }
+//       console.log(data.main.temp);
+//       let currentTemp = (data.main.temp)
+//       // console.log(data.wind.speed);
+//       // console.log(data.main.humidity);
+//       // console.log(data.UV??)
+
+//       let weatherInfo = []
+//       weatherInfo.push("currentTemp")
+//       console.log(weatherInfo);
+
+
+
+
 
 /****   STEP 2: Display Data  A) Current City Weather ******/
 
@@ -197,28 +271,6 @@ var getWeather = function (cityName) {
 // currentCityEl.appendChild(currentTempEl);
 // }
 
-function displaySearchHistory() {
-
-  // if (cities.length === 0) {
-  //   searchHistoryContainerEl.textContent = "Sorry - couldn't find weather for that city. Check spelling or add 2-letter state abbreviation?";
-  //   return;
-  // }
-  // previousCityTerm.textContent = searchTerm
-
-  //create container for each city
-  var cityEl = document.createElement("a");
-  cityEl.classList = "list-group-item";
-
-  cityEl.setAttribute("href", "https://api.openweathermap.org/data/2.5/weather?q=sacramento&units=imperial&appid=299ebedfe3926f8c9e100c54f9104d93");
-
-  //create spanEl to hold the city name
-  var previousCityTitle = document.createElement("span");
-  previousCityTitle.textContent = "need to pull from input - create button as new input and run get weather again??";
-
-  //append to containers
-  cityEl.appendChild(previousCityTitle);
-  searchHistoryContainerEl.appendChild(cityEl);
-};
 
 
 // /**** STEP 1 - Get City Coordinates: ****/
