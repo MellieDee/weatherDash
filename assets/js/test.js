@@ -21,7 +21,7 @@ var previousCitiesListContainer = document.querySelector("#previous-cities-list-
 var currentCityEl = document.querySelector("#current-city-details");
 var lat = "";
 var lon = "";
-var previousCities = []
+var savedCities = []
 
 
 /*****    EVENT HANDLERS START *****/
@@ -147,11 +147,8 @@ var oneCall = function (lat, lon, name) {
           }
           var iconCode = data.current.weather[0].icon;
 
-
           currentIcon.innerHTML = "<img src='http://openweathermap.org/img/wn/" + iconCode + "@2x.png' width = '40px'>";
           currentCityName.innerHTML = name + "   " + dateCity + "   " + currentIcon.innerHTML
-
-
           degreeF.innerHTML = "&#x2109";
           currentTemp.textContent = "Temp: " + data.current.temp + " " + degreeF.innerHTML;
           currentWind.textContent = "Wind: " + data.current.wind_speed + " MPH"
@@ -177,12 +174,34 @@ var oneCall = function (lat, lon, name) {
 
   //set up cards dynamically with for loop
 }
-
-var saveCities = function (cityName) {
-  previousCities.push(cityName)
-  localStorage.setItem("city", JSON.stringify(previousCities))
+/**** SET CITY NAMES TO LOCAL STORAGE   ***/
+function saveCities(cityName) {
+  savedCities.push(cityName)
+  localStorage.setItem("city", JSON.stringify(savedCities))
 }
 
 
+function getPreviousCities() {
+  savedCities = localStorage.getItem("city");
+  //getting KEY from local storage and Key has value of the ARRAY
+  // var previousCities = JSON.parse(localStorage.getItem("city"));
+  // console.log(previousCities);
 
+
+  //parse
+  savedCities = JSON.parse(savedCities);
+
+  for (var i = 0; i < savedCities. length; i++) {
+    console.log(savedCities[i])
+
+  //   var previousCityEl = document.createElement("a");
+  //   previousCityEl.setAttribute("href", "#");
+  //   previousCityEl.classList =  "dropdown-item previous-city-list-item";
+
+  //   previousCityEl.textContent = previousCityArray[i];
+
+  //  previousCitiesListContainer.appendChild(previousCityEl);
+  }
+}
+getPreviousCities();
 userFormEl.addEventListener("submit", formSubmitHandler);
