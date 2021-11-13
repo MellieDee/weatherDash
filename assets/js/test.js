@@ -6,22 +6,20 @@ var cityNameInputEl = document.querySelector("#city-name");
 var previousCitiesListContainer = document.querySelector("#previous-cities-list-container");
 
 
-          /***   CREATE ELEMENTS ***/
-          var currentIconContainer = document.createElement("div");
-          var currentIcon = document.createElement("i");
-          var currentTemp = document.createElement("li");
-          var degreeF = document.createElement("span");
-          var currentWind = document.createElement("li");
-          var currentHumidity = document.createElement("li");
-          var currentUv = document.createElement("li");
-
-
+/***   CREATE ELEMENTS ***/
+var currentIconContainer = document.createElement("div");
+var currentIcon = document.createElement("i");
+var currentTemp = document.createElement("li");
+var degreeF = document.createElement("span");
+var currentWind = document.createElement("li");
+var currentHumidity = document.createElement("li");
+var currentUv = document.createElement("li");
 
 // var previousCityTerm = document.querySelector("#previous-city");
 var currentCityEl = document.querySelector("#current-city-details");
 var lat = "";
 var lon = "";
-var savedCities = []
+var previousCities = []
 
 
 /*****    EVENT HANDLERS START *****/
@@ -71,7 +69,7 @@ let formSubmitHandler = function (event) {
 
 // /**** STEP 1 - Get City Coordinates from 5-Day Forecast API Endpoint: ****/
 var getCoord = function (cityName) {
-   saveCities(cityName);
+  saveCities(cityName);
 
   var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&units=imperial&appid=299ebedfe3926f8c9e100c54f9104d93";
   // var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&appid=299ebedfe3926f8c9e100c54f9104d93";
@@ -99,7 +97,7 @@ var getCoord = function (cityName) {
 
 
 var oneCall = function (lat, lon, name) {
-  var oneCallUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly&appid=299ebedfe3926f8c9e100c54f9104d93";
+  var oneCallUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly&units=imperial&appid=299ebedfe3926f8c9e100c54f9104d93";
   console.log(oneCallUrl)
 
   fetch(oneCallUrl)
@@ -176,8 +174,8 @@ var oneCall = function (lat, lon, name) {
 }
 /**** SET CITY NAMES TO LOCAL STORAGE   ***/
 function saveCities(cityName) {
-  savedCities.push(cityName)
-  localStorage.setItem("city", JSON.stringify(savedCities))
+  previousCities.push(cityName)
+  localStorage.setItem("city", JSON.stringify(previousCities))
 }
 
 
@@ -189,18 +187,17 @@ function getPreviousCities() {
 
 
   //parse
-  savedCities = JSON.parse(savedCities);
+  savedCities
+  for (var i = 0; i < previousCities.length; i++) {
+    console.log(previousCities[i])
 
-  for (var i = 0; i < savedCities. length; i++) {
-    console.log(savedCities[i])
+    //   var previousCityEl = document.createElement("a");
+    //   previousCityEl.setAttribute("href", "#");
+    //   previousCityEl.classList =  "dropdown-item previous-city-list-item";
 
-  //   var previousCityEl = document.createElement("a");
-  //   previousCityEl.setAttribute("href", "#");
-  //   previousCityEl.classList =  "dropdown-item previous-city-list-item";
+    //   previousCityEl.textContent = previousCityArray[i];
 
-  //   previousCityEl.textContent = previousCityArray[i];
-
-  //  previousCitiesListContainer.appendChild(previousCityEl);
+    //  previousCitiesListContainer.appendChild(previousCityEl);
   }
 }
 getPreviousCities();
