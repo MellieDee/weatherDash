@@ -8,20 +8,9 @@ console.log(localTime.toString())
 var userFormEl = document.querySelector("#city-search-form");
 var cityNameInputEl = document.querySelector("#city-name");
 
-
-// var previousCitiesListContainer = document.querySelector("#previous-cities-list-container");
-
 // /* set forecast variables */
 var forecastCardGroup = document.querySelector(".forecast-group");
-// // // var forecastCardGroup = "";
-// // var forecastCard = "";
-// // // var forecastIconLi = "";
-// // // var forecastTempLi = "";
-// // // var forecastWindLi = "";
-// // // var forecastHumidityLi = "";
 var forecastCard = document.createElement("div");
-// forecastCard.classList = "card forecast-card";
-// // forecastCard.setAttribute("id", forecastDayCounter);
 forecastCardGroup.appendChild(forecastCard);
 
 
@@ -34,6 +23,10 @@ var currentWind = document.createElement("li");
 var currentHumidity = document.createElement("li");
 var currentUv = document.createElement("li");
 var currentCityEl = document.querySelector("#current-city-details");
+
+
+
+
 
 /* misc variables */
 var lat = "";
@@ -67,24 +60,13 @@ let formSubmitHandler = function (event) {
   return cityName;
 
 }
-
-//possibly add function to account for state reference and comma
-//convert state to Upper
-// let cityState = cityName.split(',')[1];
-// console.log(cityState);
-// if (cityState.length > 2){
-//   alert("Please use 2 character state abbreviation")
-// } else {
-//   let cityStateUp = cityState.toUpperCase();
-//   console.log(cityStateUp)
-// }
-// };
-
+//possibly add function to check if country code is US 
 
 
 // /**** STEP 1 - Get City Coordinates from 5-Day Forecast API Endpoint: ****/
 var getCoord = function (cityName) {
   saveCities(cityName);
+  getSavedCities();
 
   var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&units=imperial&appid=299ebedfe3926f8c9e100c54f9104d93";
   // var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&appid=299ebedfe3926f8c9e100c54f9104d93";
@@ -242,7 +224,10 @@ function createForecastCards(data) {
     forecastCardUl.appendChild(forecastHumidityLi);
   }
 
+
+
 }
+
 
 
 /**** SET CITY NAMES TO LOCAL STORAGE   ***/
@@ -250,31 +235,46 @@ function saveCities(cityName) {
   savedCities.push(cityName)
   localStorage.setItem("city", JSON.stringify(savedCities))
   console.log(savedCities);
+
+  clearCityList()
+
+  function clearCityList() {
+    while (savedCityCardUl.firstChild) {
+      savedCityCardUl.removeChild(savedCityCardUl.firstChild);
+    };
+  }
+
 }
+
+
+  /* set searched city variables */
+  var savedCityCard = document.querySelector(".city-card");
+  var savedCityCardBody = document.createElement("div");
+  savedCityCard.appendChild(savedCityCardBody);
+
+  var savedCityCardTitle = document.createElement("h3");
+  savedCityCardTitle.classList = "card-title city-card-title";
+  savedCityCardTitle.innerHTML = "Searched Cities"
+  savedCityCardBody.appendChild(savedCityCardTitle);
+
+
+  var savedCityCardUl = document.createElement("ul");
+  savedCityCardUl.classList = "list-group city-list";
+  savedCityCardBody.appendChild(savedCityCardUl);
+
+ 
 
 function getSavedCities() {
   //getting KEY from local storage and Key has value of the ARRAY
   var savedCities = JSON.parse(localStorage.getItem("city"));
   console.log(savedCities);
 
-  var savedCityCard = document.querySelector(".city-card");
-  var savedCityCardBody = document.createElement("div");
-  savedCityCard.appendChild(savedCityCardBody);
-
-
-  var savedCityCardTitle = document.createElement("h2");
-  savedCityCardTitle.classList = "card-title p-2 city-card-title";
-  savedCityCardTitle.innerHTML = "Searched Cities"
-  savedCityCardBody.appendChild(savedCityCardTitle);
 
   for (let i = 0; i < savedCities.length; i++) {
 
     var savedCityBtnName = savedCities[i]
     console.log(savedCityBtnName);
 
-    var savedCityCardUl = document.createElement("ul");
-    savedCityCardUl.classList = "list-group city-list";
-    savedCityCardBody.appendChild(savedCityCardUl);
 
     var savedCityCardLi = document.createElement("li");
     savedCityCardLi.classList = "list-group-item city-item"
@@ -283,13 +283,15 @@ function getSavedCities() {
     var savedCityBtn = document.createElement("button");
     savedCityBtn.classList = "btn btn-block saved-city-btn";
     savedCityBtn.setAttribute("type", "button");
-    savedCityBtn.textContent = savedCityBtnName;
-    savedCityCardLi.appendChild(savedCityBtn);
+    savedCityBtn.textContent = savedCityBtnName
+    savedCityCardLi.appendChild(savedCityBtn)
   }
-
 }
 
-getSavedCities();
+
+
+
+
 userFormEl.addEventListener("submit", formSubmitHandler);
 
 

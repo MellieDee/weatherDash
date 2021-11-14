@@ -159,6 +159,13 @@ font-size: 1.1em;
  background-color: #F1C15A;
 }
 
+.saved-city-btn {
+  font-size: 1.3em;
+}
+
+.city-card-title {
+  padding: 0.8em;
+}
 /* .main-result {
   border: 1px solid #F1C15A;
   margin: 0.3em;
