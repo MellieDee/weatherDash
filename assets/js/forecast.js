@@ -1,14 +1,8 @@
 
-var savedCitiesBtnHandler = function (event) {
-  // get city attribute from the clicked element
-  var city = event.target.getAttribute(.)
+//savvedCites we jsut parsed from getItme
 
-  }
-
-
-
-  /* OPTION 1 */
-  function displaySearchedCities
+if savedCities.includes(!cityName)
+then dont create BUTTONS   
 
 
 
@@ -16,22 +10,11 @@ var savedCitiesBtnHandler = function (event) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  //   if("lodi"){
+  //     alert('Name exists');
+  // }else{
+  //     alert('Name is not found');
+  // }
 
 
 

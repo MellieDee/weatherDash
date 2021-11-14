@@ -228,21 +228,26 @@ function createForecastCards(data) {
 
 /**** SET CITY NAMES TO LOCAL STORAGE   ***/
 function saveCities(cityName) {
+
+  if (savedCities.includes(cityName)) {
+  alert("true")
+  } else {
+    alert("false");
+  
   savedCities.push(cityName)
   localStorage.setItem("city", JSON.stringify(savedCities))
   console.log(savedCities);
-
+}
   clearCityList()
 
   function clearCityList() {
     while (savedCityCardUl.firstChild) {
       savedCityCardUl.removeChild(savedCityCardUl.firstChild);
     };
-  }
+  // }
 
 }
-
-
+}
 /* set searched city variables DYNAMIC */
 var savedCityCard = document.querySelector(".city-card");
 var savedCityCardBody = document.createElement("div");
@@ -269,37 +274,38 @@ function getSavedCities() {
   console.log(savedCities);
 
 
+
+
   for (let i = 0; i < savedCities.length; i++) {
 
-    var savedCityBtnName = savedCities[i]
-    console.log(savedCityBtnName);
+    // if (savedCities.includes(savedCities[i])) {
 
 
-    var savedCityCardLi = document.createElement("li");
-    savedCityCardLi.classList = "list-group-item city-item"
-    savedCityCardUl.appendChild(savedCityCardLi)
 
-    var savedCityBtn = document.createElement("button");
-    savedCityBtn.classList = "btn btn-block saved-city-btn";
-    savedCityBtn.setAttribute("type", "button");
-    savedCityBtn.textContent = savedCityBtnName
-    savedCityCardLi.appendChild(savedCityBtn)
+      var savedCityBtnName = savedCities[i]
+      console.log(savedCityBtnName);
+
+      //creating saved city Li
+      var savedCityCardLi = document.createElement("li");
+      savedCityCardLi.classList = "list-group-item city-item"
+      savedCityCardUl.appendChild(savedCityCardLi)
+
+      //creating savedCitiesButton & add to list
+      var savedCityBtn = document.createElement("button");
+      savedCityBtn.classList = "btn btn-block saved-city-btn";
+      savedCityBtn.setAttribute("type", "button");
+      savedCityBtn.textContent = savedCityBtnName
+      savedCityCardLi.appendChild(savedCityBtn)
+    // }
   }
 
   $(".city-card .saved-city-btn").click(function () {
     // event.preventDefault();
-
     // let cityName = savedCityBtnName
     var cityName = $(this).text()
 
     console.log(cityName)
 
-    // clearForecastCards()
-
-    //     function clearSavedCiti() {
-    //       while (savedCityCardUl.firstChild) {
-    //        savedCityCardUl.removeChild(savedCityCardUl.firstChild);
-    //       };
 
     if (cityName) {
       //get weather data using cityName var in getWeather function
@@ -307,7 +313,6 @@ function getSavedCities() {
       getCoord(cityName);
       //clear input field
       cityNameInputEl.value = "";
-
       savedCityBtn.textContent = "";
 
     } else {
@@ -337,6 +342,10 @@ userFormEl.addEventListener("submit", formSubmitHandler);
 // oR 
 //  delete all buttons and make fresh from new Array
 //  oR
+
+ //create a new button
+
+    // if city is NOT in array then DO create new BTTon 
 
 
 
