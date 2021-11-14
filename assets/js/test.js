@@ -25,10 +25,7 @@ var currentUv = document.createElement("li");
 var currentCityEl = document.querySelector("#current-city-details");
 
 
-
-
-
-/* misc variables */
+/* misc variables for API calls */
 var lat = "";
 var lon = "";
 var savedCities = []
@@ -58,7 +55,6 @@ let formSubmitHandler = function (event) {
   };
   console.log(cityName);
   return cityName;
-
 }
 //possibly add function to check if country code is US 
 
@@ -247,22 +243,22 @@ function saveCities(cityName) {
 }
 
 
-  /* set searched city variables */
-  var savedCityCard = document.querySelector(".city-card");
-  var savedCityCardBody = document.createElement("div");
-  savedCityCard.appendChild(savedCityCardBody);
+/* set searched city variables */
+var savedCityCard = document.querySelector(".city-card");
+var savedCityCardBody = document.createElement("div");
+savedCityCard.appendChild(savedCityCardBody);
 
-  var savedCityCardTitle = document.createElement("h3");
-  savedCityCardTitle.classList = "card-title city-card-title";
-  savedCityCardTitle.innerHTML = "Searched Cities"
-  savedCityCardBody.appendChild(savedCityCardTitle);
+var savedCityCardTitle = document.createElement("h3");
+savedCityCardTitle.classList = "card-title city-card-title";
+savedCityCardTitle.innerHTML = "Searched Cities"
+savedCityCardBody.appendChild(savedCityCardTitle);
 
 
-  var savedCityCardUl = document.createElement("ul");
-  savedCityCardUl.classList = "list-group city-list";
-  savedCityCardBody.appendChild(savedCityCardUl);
+var savedCityCardUl = document.createElement("ul");
+savedCityCardUl.classList = "list-group city-list";
+savedCityCardBody.appendChild(savedCityCardUl);
 
- 
+
 
 function getSavedCities() {
   //getting KEY from local storage and Key has value of the ARRAY
@@ -286,6 +282,40 @@ function getSavedCities() {
     savedCityBtn.textContent = savedCityBtnName
     savedCityCardLi.appendChild(savedCityBtn)
   }
+
+  $(".city-card .saved-city-btn").click(function () {
+    // event.preventDefault();
+
+    // let cityName = savedCityBtnName
+    var cityName = $(this).text()
+
+    console.log(cityName)
+
+    // clearForecastCards()
+
+    //     function clearForecastCards() {
+    //       while (forecastCardGroup.firstChild) {
+    //         forecastCardGroup.removeChild(forecastCardGroup.firstChild);
+    //       };
+
+    if (cityName) {
+      //get weather data using cityName var in getWeather function
+      getCoord(cityName);
+      //clear input field
+      cityNameInputEl.value = "";
+
+
+      savedCityBtn.textContent = "";
+
+    } else {
+      //update to modal later
+      alert("Please enter a valid US City name.");
+    };
+    console.log(cityName);
+    return cityName;
+  })
+
+
 }
 
 
@@ -294,6 +324,18 @@ function getSavedCities() {
 
 userFormEl.addEventListener("submit", formSubmitHandler);
 
+
+
+
+
+
+
+// $(“.saved-city-btn”).on(“click”, function(event) {
+//   var cityName = $(this).text()
+//   getCoord(cityName)
+// }
+
+// savedCityCardLi.addEventListener("submit", resubmit)
 
 
 
