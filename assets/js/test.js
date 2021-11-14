@@ -61,6 +61,7 @@ let formSubmitHandler = function (event) {
 
 // /**** STEP 1 - Get City Coordinates from 5-Day Forecast API Endpoint: ****/
 var getCoord = function (cityName) {
+
   saveCities(cityName);
   getSavedCities();
 
@@ -68,22 +69,39 @@ var getCoord = function (cityName) {
   // var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&appid=299ebedfe3926f8c9e100c54f9104d93";
   // console.log(apiUrl);
 
+
   //make request to URL 5-Day Forecast API Endpoint
   fetch(apiUrl)
     .then(function (response) {
-      response.json()
-        .then(function (data) {
-          //console.log as check then display in main card
-          console.log(data);
-          console.log(data.city.name);
-          console.log(data.city.country);
-          //maybe incorporate if statement to check for US as countrycode?
+      if (response.ok) {
+        response.json()
+          .then(function (data) {
+            //console.log as check then display in main card
+            console.log(data);
+            console.log(data.city.name);
+            console.log(data.city.country);
+            //maybe incorporate if statement to check for US as countrycode?
 
-          //pass coordinates through call for weather data
-          oneCall(data.city.coord.lat, data.city.coord.lon, data.city.name)
-        });
-    });
+            //pass coordinates through call for weather data
+
+            oneCall(data.city.coord.lat, data.city.coord.lon, data.city.name)
+          });
+
+      } else {
+        (!response.ok) 
+          alert("Error: Please enter a real city name.");
+          savedCities.pop(savedCities.length + 1);
+        
+      }
+    })
+  // }).catch(function (error) {
+  //   //notice this ` .catch()` getting chained on to end of `.then()` method
+  //   // clearTimeout(getSavedCities); 
+  //   savedCities.pop();
+  //   savedCityLi([i]).style.display = "none";
+  // });
 }
+
 
 //****    STEP 2: Get Weather data, Create & fill Main & Forecast Cards ***/
 var oneCall = function (lat, lon, name) {
@@ -230,23 +248,26 @@ function createForecastCards(data) {
 function saveCities(cityName) {
 
   if (savedCities.includes(cityName)) {
-  alert("true")
+    // alert("true")
+    let popped = savedCities.pop();
+    console.log(popped);
+
   } else {
-    alert("false");
-  
-  savedCities.push(cityName)
-  localStorage.setItem("city", JSON.stringify(savedCities))
-  console.log(savedCities);
-}
+    // alert("false");
+
+    savedCities.push(cityName)
+    localStorage.setItem("city", JSON.stringify(savedCities))
+    console.log(savedCities);
+  }
   clearCityList()
 
   function clearCityList() {
     while (savedCityCardUl.firstChild) {
       savedCityCardUl.removeChild(savedCityCardUl.firstChild);
     };
-  // }
+    // }
 
-}
+  }
 }
 /* set searched city variables DYNAMIC */
 var savedCityCard = document.querySelector(".city-card");
@@ -274,29 +295,23 @@ function getSavedCities() {
   console.log(savedCities);
 
 
-
-
   for (let i = 0; i < savedCities.length; i++) {
 
-    // if (savedCities.includes(savedCities[i])) {
+    var savedCityBtnName = savedCities[i]
+    console.log(savedCityBtnName);
 
+    //creating saved city Li
+    var savedCityCardLi = document.createElement("li");
+    savedCityCardLi.classList = "list-group-item city-item"
+    savedCityCardUl.appendChild(savedCityCardLi)
 
+    //creating savedCitiesButton & add to list
+    var savedCityBtn = document.createElement("button");
+    savedCityBtn.classList = "btn btn-block saved-city-btn";
+    savedCityBtn.setAttribute("type", "button");
+    savedCityBtn.textContent = savedCityBtnName
+    savedCityCardLi.appendChild(savedCityBtn)
 
-      var savedCityBtnName = savedCities[i]
-      console.log(savedCityBtnName);
-
-      //creating saved city Li
-      var savedCityCardLi = document.createElement("li");
-      savedCityCardLi.classList = "list-group-item city-item"
-      savedCityCardUl.appendChild(savedCityCardLi)
-
-      //creating savedCitiesButton & add to list
-      var savedCityBtn = document.createElement("button");
-      savedCityBtn.classList = "btn btn-block saved-city-btn";
-      savedCityBtn.setAttribute("type", "button");
-      savedCityBtn.textContent = savedCityBtnName
-      savedCityCardLi.appendChild(savedCityBtn)
-    // }
   }
 
   $(".city-card .saved-city-btn").click(function () {

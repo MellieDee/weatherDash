@@ -1,20 +1,80 @@
 
-//savvedCites we jsut parsed from getItme
-
-if savedCities.includes(!cityName)
-then dont create BUTTONS   
+var getCoord = function (cityName) {
+  saveCities(cityName);
 
 
 
+success: function (data) {
+  try {
+    response.JSON();
+    if (!data) {
+throw ('error');
+    }
+    console.log(data);
+    console.log(data.city.name);
+    console.log(data.city.country);
+    //maybe incorporate if statement to check for US as countrycode?
+    
+    //pass coordinates through call for weather data
+    oneCall(data.city.coord.lat, data.city.coord.lon, data.city.name)
+  }
+  catch(error) {
+    // savedCities = (cityName[i])
+    savedCities.pop(cityName);
+    savedCityCard.style.display = ""; 
+    console.log(popped);
+  }
+}
 
 
 
 
-  //   if("lodi"){
-  //     alert('Name exists');
-  // }else{
-  //     alert('Name is not found');
-  // }
+
+
+
+
+
+
+
+  //make request to URL 5-Day Forecast API Endpoint
+  fetch(apiUrl)
+    .then(function (response) {
+      if (!response.ok) {
+let popped = savedCitites.pop(cityName)
+
+
+      } else {
+        response.json()
+          .then(function (data) {
+            //console.log as check then display in main card
+            console.log(data);
+            console.log(data.city.name);
+            console.log(data.city.country);
+            //maybe incorporate if statement to check for US as countrycode?
+
+            //pass coordinates through call for weather data
+            oneCall(data.city.coord.lat, data.city.coord.lon, data.city.name)
+      
+
+          });      
+
+       
+        // let popped = savedCities.pop();
+        // console.log(popped);
+        alert("Error: Please enter a real city name.");
+      }
+    }).catch(function (error) {
+      //notice this ` .catch()` getting chained on to end of `.then()` method
+
+      // alert("Unable to connexct to Github");
+    });
+
+
+
+
+
+
+
 
 
 
