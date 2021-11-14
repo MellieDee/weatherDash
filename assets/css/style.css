@@ -86,15 +86,6 @@ font-size: 1.1em;
   font-size: 1.5em;
   color: #152744; 
 }
-/* 
-.card  {
-  border: 3px solid var(--secondary-color);
-  background-color: var(--tertiary-color);
-  width: 100%;
-  color: var(--secondary-color);
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
-} */
 
 .card-header {
   font-size: 1.2em;
@@ -117,36 +108,6 @@ font-size: 1.1em;
 .list-group-item {
   font-size: 1em;
 }
-/* 
-.main-header {
-  font-size: 1.75em;
-  font-weight: bold;
-}
-.search, .results {
-  border: 1px solid white;
-}
-
-.main-card {
-  min-height: 175px;
-}
-
- .card-body, .card-text, .list-group-item {
-  /* background-color: #152744;
-  color: #152744;
-  border: 2px solid #152744;
-} 
-.card-body {
-  padding: 1em;
-}
-
-.card-title {
-  font-size: 2em;
-  margin-top: .6em;
-}
-
-.card-title, .card-header {
-  color: #152744;
-} */
 
 .city-item {
   background-color: var(--tertiary-color);
@@ -184,30 +145,6 @@ font-size: 1.1em;
   margin: 0 auto;
   padding: 0.5em 0;
 }
-/* 
-.list-group-item {
-  padding: 0.6em 1em;
-} */
-/*
-.hero {
-    display: block;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    font-size: 2em;
-    /* margin-block-start: 2em;
-    margin-block-end: 2em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px; 
-    margin: 0 auto;
-    font-weight: bold;
-    text-align: center;
-    padding-bottom: 1em;
-}
-
-.search-list {
-  border: 2px solid black;
-} */
 
 /****  between 280px & 360px ******/
 /* @media screen and (min-width: 360px) {
@@ -245,27 +182,24 @@ font-size: 1.1em;
   .hero-form {
   border: 3px solid var(--secondary-color);
   background-color: var(--tertiary-color);
-  /* padding: 20px;
-  width: 40%; */
-  /* margin: 1em; */
   color: var(--secondary-color);
 
   }
- 
   .hero-form h2 {
     font-size: 1.1em;
   }
   .card-body {
     padding: 0.3em;
   }
-  .list-group-item {
-    font-size: 0.7em;
-    }
-/* .forecast-card {
-    min-width: 18rem;
-   max-width: 16rem;
-} */
 
+  .forecast-title {
+    font-size: 1em;
+    font-weight: bold;
+  }
+
+  .list-group-item {
+    font-size: 0.8em;
+    }
 }
  
  @media screen and (min-width: 768px) {

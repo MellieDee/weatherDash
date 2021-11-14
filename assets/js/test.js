@@ -106,7 +106,6 @@ var oneCall = function (lat, lon, name) {
         .then(function (data) {
           //console.log as check then display in main card
 
-
           //*** DYNAMICALLY CREATE ELEMENTS for MAIN CARD  STARTS   ***
           var currentCityName = document.getElementById("current-city-name")
 
@@ -114,7 +113,6 @@ var oneCall = function (lat, lon, name) {
           //convert to string from epoch seconds using Luxon
           var mainCityDate = DateTime.fromSeconds(callTime).toLocaleString();
           console.log(mainCityDate);
-
 
           //***  Assign identifiers to Main Card Elements   ***
           currentIcon.classList = "weather-icon";
@@ -124,13 +122,11 @@ var oneCall = function (lat, lon, name) {
           currentHumidity.classList = "list-group-item";
           currentUv.classList = "list-group-item";
 
-
           //***  Assign Content to Main Card Elements    ***
           for (var i = 0; i < data.current.weather.length; i++) {
             console.log(data.current.weather[0].icon)
           }
           var iconCode = data.current.weather[0].icon;
-
           currentIcon.innerHTML = "<img src='http://openweathermap.org/img/wn/" + iconCode + "@2x.png' width = '40px'>";
 
           currentCityName.innerHTML = name + "   " + mainCityDate + "   " + currentIcon.innerHTML
@@ -141,15 +137,30 @@ var oneCall = function (lat, lon, name) {
           currentHumidity.textContent = "Humidity: " + data.current.humidity + " %"
           currentUv.textContent = "UV Index: " + data.current.uvi;
 
-          //***   APPEND to Containers (end of list/bottom child) for Main Card ***
-          currentIconContainer.appendChild(currentIcon)
-          // currentCityEl.appendChild(currentIconContainer);
+
+          // create colors for UV Index
+          console.log(data.current.uvi);
+
+          if (data.current.uvi <= 2) {
+          currentUv.setAttribute("style", "background-color: green")
+
+            // currentUv.style.backgroundColor = "green";
+          } else if ( 3 <= data.current.uvi <= 5) {
+            currentUv.style.backgroundColor = "orange";
+          } else {
+            (6 <= data.current.uvi)
+            currentUv.style.backgroundColor = "red";
+
+          }
+
+
+            //***   APPEND to Containers (end of list/bottom child) for Main Card ***
+            currentIconContainer.appendChild(currentIcon)
           currentCityEl.appendChild(currentTemp);
           currentCityEl.appendChild(currentWind);
           currentCityEl.appendChild(currentHumidity);
           currentCityEl.appendChild(currentUv);
           /****     MAIN CARD ENDS      ******/
-
           console.log(data);
 
           clearForecastCards()

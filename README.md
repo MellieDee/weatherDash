@@ -38,8 +38,11 @@ To see the weather outlook for multiple cities as desired.
 &nbsp;
 
 
-## Scheduler URL
+## Weather Dash URL
 ***
+Get your weather here *[weather dash homepage](https://melliedee.github.io/weatherDash/)
+
+
 
 &nbsp;
 
