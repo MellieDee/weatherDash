@@ -140,11 +140,18 @@ font-size: 1.1em;
   color: #152744;
 } */
 
+.city-item {
+  background-color: var(--tertiary-color);
+  margin: 0;
+  padding: 0;
+}
+
 .btn {
   background-color: #355aab;
   color: #F1C15A;
   margin: 0.2em 0;
   font-size: 1em;
+  display: block;
 }
 
 .btn:hover {

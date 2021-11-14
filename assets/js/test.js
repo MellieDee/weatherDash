@@ -107,9 +107,7 @@ var getCoord = function (cityName) {
     });
 }
 
-
-
-
+//****    STEP 2: Get Weather data, Create & fill Main & Forecast Cards ***/
 var oneCall = function (lat, lon, name) {
   var oneCallUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly&units=imperial&appid=299ebedfe3926f8c9e100c54f9104d93";
   console.log(oneCallUrl)
@@ -167,42 +165,6 @@ var oneCall = function (lat, lon, name) {
 
           console.log(data);
 
-          /***   Get Forecast Card Variables   ****/
-          // var forecastTime = data.daily[i].dt
-          // //convert to string from epoch seconds using Luxon
-          // var forecastDate = DateTime.fromSeconds(forecastTime).toLocaleString();
-          // console.log(forecastDate);
-
-          // var iconCode = data.daily[i].weather[0].icon;
-          // console.log(iconCode);
-
-          // var forecastTemp = data.daily[i].temp.day
-          // console.log(forecastTemp)
-
-          // var forecastWind = data.daily[i].wind_speed
-          // console.log(forecastWind)
-
-          // var forecastHumidity = data.daily[i].humidity
-          // console.log(forecastHumidity)
-
-          // var forecastCard = document.createElement("div");
-          // forecastCard.classList = "card forecast-card";
-          // // forecastCard.setAttribute("id", forecastDayCounter);
-          // forecastCardGroup.appendChild(forecastCard);
-
-
-          //   if (!forecastCard.innerHTML) {
-          //   // forecastCardTitle.innerHTML = "";
-          //   // forecastIconLi.innerHTML = "";
-          //   // forecastTempLi.textContent = "";
-          //   // forecastWindLi.textContent = "";
-          //   // forecastHumidityLi.textContent = "";
-          //   // forecastCardGroup.removeChild(forecastCard);
-          //   createForecastCards(data)
-          // } else {
-          //   forecastCardGroup.removeChild(forecastCard);
-          //   createForecastCards(data)
-          //}
           clearForecastCards()
 
           function clearForecastCards() {
@@ -210,34 +172,23 @@ var oneCall = function (lat, lon, name) {
               forecastCardGroup.removeChild(forecastCardGroup.firstChild);
             };
           } createForecastCards(data)
-        
-    })
-});
+        })
+    });
 }
 
+
+//***  Function to Dynamically Create Forcast Cards */
 function createForecastCards(data) {
 
   for (var i = 1; i < 6; i++) {
     var forecastTime = data.daily[i].dt
     //convert to string from epoch seconds using Luxon
     var forecastDate = DateTime.fromSeconds(forecastTime).toLocaleString();
-    console.log(forecastDate);
-
     var iconCode = data.daily[i].weather[0].icon;
-    console.log(iconCode);
-
     var forecastTemp = data.daily[i].temp.day
-    console.log(forecastTemp)
-
     var forecastWind = data.daily[i].wind_speed
-    console.log(forecastWind)
-
     var forecastHumidity = data.daily[i].humidity
-    console.log(forecastHumidity)
 
-    // console.log(forecastTempLi.textContent);
-    // console.log(forecastWindLi.textContent);
-    // console.log(forecastHumidityLi.textContent);
 
     //Card
     var forecastCard = document.createElement("div");
@@ -289,19 +240,9 @@ function createForecastCards(data) {
     forecastHumidityLi.classList = "list-group-item forecast-item fhumidity"
     forecastHumidityLi.textContent = "Humidity: " + forecastHumidity + " %"
     forecastCardUl.appendChild(forecastHumidityLi);
-
-
-
-    //   console.log(forecastTempLi.textContent);
-    //   console.log(forecastWindLi.textContent);
-    //   console.log(forecastHumidityLi.textContent);
-
   }
 
 }
-
-
-
 
 
 /**** SET CITY NAMES TO LOCAL STORAGE   ***/
@@ -309,26 +250,53 @@ function saveCities(cityName) {
   savedCities.push(cityName)
   localStorage.setItem("city", JSON.stringify(savedCities))
   console.log(savedCities);
+}
+
+function getSavedCities() {
+  //getting KEY from local storage and Key has value of the ARRAY
+  var savedCities = JSON.parse(localStorage.getItem("city"));
+  console.log(savedCities);
+
+  var savedCityCard = document.querySelector(".city-card");
+  var savedCityCardBody = document.createElement("div");
+  savedCityCard.appendChild(savedCityCardBody);
+
+
+  var savedCityCardTitle = document.createElement("h2");
+  savedCityCardTitle.classList = "card-title p-2 city-card-title";
+  savedCityCardTitle.innerHTML = "Searched Cities"
+  savedCityCardBody.appendChild(savedCityCardTitle);
+
+  for (let i = 0; i < savedCities.length; i++) {
+
+    var savedCityBtnName = savedCities[i]
+    console.log(savedCityBtnName);
+
+    var savedCityCardUl = document.createElement("ul");
+    savedCityCardUl.classList = "list-group city-list";
+    savedCityCardBody.appendChild(savedCityCardUl);
+
+    var savedCityCardLi = document.createElement("li");
+    savedCityCardLi.classList = "list-group-item city-item"
+    savedCityCardUl.appendChild(savedCityCardLi)
+
+    var savedCityBtn = document.createElement("button");
+    savedCityBtn.classList = "btn btn-block saved-city-btn";
+    savedCityBtn.setAttribute("type", "button");
+    savedCityBtn.textContent = savedCityBtnName;
+    savedCityCardLi.appendChild(savedCityBtn);
+  }
 
 }
 
-function clearForecast() {
-  document.querySelector(".forecast-group").style.display = "none"
-}
-
-// function getSavedCities() {
-// savedCities = localStorage.getItem("city");
-
-//    //getting KEY from local storage and Key has value of the ARRAY
-//  var savedCities = JSON.parse(localStorage.getItem("city"));
-// console.log(savedCities);
+getSavedCities();
+userFormEl.addEventListener("submit", formSubmitHandler);
 
 
 
 
 
-
-//  for (let i =0; i <  savedCities.length; i++) {
+//  for (let i = 0; i <  savedCities.length; i++) {
 // var savedCitiesListContainerUl = document.querySelector("saved-citites-list-container")
 // var savedCityListItem = document.createElement("li")
 // var savedCityBtn = document.createElement("button")
@@ -374,4 +342,3 @@ function clearForecast() {
 
 
 
-userFormEl.addEventListener("submit", formSubmitHandler);
