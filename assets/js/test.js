@@ -12,13 +12,17 @@ var cityNameInputEl = document.querySelector("#city-name");
 // var previousCitiesListContainer = document.querySelector("#previous-cities-list-container");
 
 // /* set forecast variables */
-// var forecastCardGroup = document.querySelector(".forecast-group");
-// // var forecastCardGroup = "";
-// var forecastCard = "";
-// // var forecastIconLi = "";
-// // var forecastTempLi = "";
-// // var forecastWindLi = "";
-// // var forecastHumidityLi = "";
+var forecastCardGroup = document.querySelector(".forecast-group");
+// // // var forecastCardGroup = "";
+// // var forecastCard = "";
+// // // var forecastIconLi = "";
+// // // var forecastTempLi = "";
+// // // var forecastWindLi = "";
+// // // var forecastHumidityLi = "";
+var forecastCard = document.createElement("div");
+// forecastCard.classList = "card forecast-card";
+// // forecastCard.setAttribute("id", forecastDayCounter);
+forecastCardGroup.appendChild(forecastCard);
 
 
 /* set current  variables */
@@ -115,7 +119,7 @@ var oneCall = function (lat, lon, name) {
       response.json()
         .then(function (data) {
           //console.log as check then display in main card
-          console.log(data);
+
 
           //*** DYNAMICALLY CREATE ELEMENTS for MAIN CARD  STARTS   ***
           var currentCityName = document.getElementById("current-city-name")
@@ -161,98 +165,140 @@ var oneCall = function (lat, lon, name) {
 
           /****     MAIN CARD ENDS      ******/
 
-
+          console.log(data);
 
           /***   Get Forecast Card Variables   ****/
-          var forecastTime = data.daily[i].dt
-          //convert to string from epoch seconds using Luxon
-          var forecastDate = DateTime.fromSeconds(forecastTime).toLocaleString();
-          console.log(forecastDate);
+          // var forecastTime = data.daily[i].dt
+          // //convert to string from epoch seconds using Luxon
+          // var forecastDate = DateTime.fromSeconds(forecastTime).toLocaleString();
+          // console.log(forecastDate);
 
-          var iconCode = data.daily[i].weather[0].icon;
-          console.log(iconCode);
+          // var iconCode = data.daily[i].weather[0].icon;
+          // console.log(iconCode);
 
-          var forecastTemp = data.daily[i].temp.day
-          console.log(forecastTemp)
+          // var forecastTemp = data.daily[i].temp.day
+          // console.log(forecastTemp)
 
-          var forecastWind = data.daily[i].wind_speed
-          console.log(forecastWind)
+          // var forecastWind = data.daily[i].wind_speed
+          // console.log(forecastWind)
 
-          var forecastHumidity = data.daily[i].humidity
-          console.log(forecastHumidity)
+          // var forecastHumidity = data.daily[i].humidity
+          // console.log(forecastHumidity)
+
+          // var forecastCard = document.createElement("div");
+          // forecastCard.classList = "card forecast-card";
+          // // forecastCard.setAttribute("id", forecastDayCounter);
+          // forecastCardGroup.appendChild(forecastCard);
 
 
-          for (var i = 1; i < 6; i++) {
-            createForecastCards(data.daily[i].dt, data.daily[i].weather[0].icon, data.daily[i].temp.day, data.daily[i].wind_speed, data.daily[i].humidity)
-          }
+          //   if (!forecastCard.innerHTML) {
+          //   // forecastCardTitle.innerHTML = "";
+          //   // forecastIconLi.innerHTML = "";
+          //   // forecastTempLi.textContent = "";
+          //   // forecastWindLi.textContent = "";
+          //   // forecastHumidityLi.textContent = "";
+          //   // forecastCardGroup.removeChild(forecastCard);
+          //   createForecastCards(data)
+          // } else {
+          //   forecastCardGroup.removeChild(forecastCard);
+          //   createForecastCards(data)
+          //}
+          clearForecastCards()
 
-
-        })
-    });
+          function clearForecastCards() {
+            while (forecastCardGroup.firstChild) {
+              forecastCardGroup.removeChild(forecastCardGroup.firstChild);
+            };
+          } createForecastCards(data)
+        
+    })
+});
 }
 
+function createForecastCards(data) {
 
-function createForecastCards(forecastDate, iconCode, forecastTemp, forecastWind, forecastHumidity) {
-  //Card
-  var forecastCard = document.createElement("div");
-  forecastCard.classList = "card forecast-card";
-  // forecastCard.setAttribute("id", forecastDayCounter);
-  forecastCardGroup.appendChild(forecastCard);
+  for (var i = 1; i < 6; i++) {
+    var forecastTime = data.daily[i].dt
+    //convert to string from epoch seconds using Luxon
+    var forecastDate = DateTime.fromSeconds(forecastTime).toLocaleString();
+    console.log(forecastDate);
 
-  //Card body
-  var forecastCardBody = document.createElement("div");
-  forecastCardBody.classList = "card-body forecast-body";
-  forecastCard.appendChild(forecastCardBody);
+    var iconCode = data.daily[i].weather[0].icon;
+    console.log(iconCode);
 
-  //Card title
-  var forecastCardTitle = document.createElement("h3");
-  forecastCardTitle.classList = "card-title forecast-title";
-  forecastCardTitle.innerHTML = forecastDate
-  forecastCardBody.appendChild(forecastCardTitle);
+    var forecastTemp = data.daily[i].temp.day
+    console.log(forecastTemp)
 
-  //Card ul
-  var forecastCardUl = document.createElement("ul");
-  forecastCardUl.classList = "list-group forecast-list";
-  forecastCardBody.appendChild(forecastCardUl);
+    var forecastWind = data.daily[i].wind_speed
+    console.log(forecastWind)
 
-  //Card li - icon
-  var forecastIconLi = document.createElement("li");
-  forecastIconLi.classList = "list-group-item forecast-item ficon"
-  // var forecastIconContainer = document.createElement("div");
-  // var iconCode = data.daily[i].weather[0].icon;
-  // forecastIconLi = iconCode
-  console.log(iconCode);
-  forecastIconLi.innerHTML = "<img src='http://openweathermap.org/img/wn/" + iconCode + "@2x.png' width = '40px'>";
-  forecastCardUl.appendChild(forecastIconLi);
+    var forecastHumidity = data.daily[i].humidity
+    console.log(forecastHumidity)
 
-  //Card li - temp
-  var forecastTempLi = document.createElement("li");
-  forecastTempLi.classList = "list-group-item forecast-item ftemp";
-  degreeF.innerHTML = "&#x2109";
-  forecastTempLi.textContent = "Temp: " + forecastTemp + " " + degreeF.innerHTML
-  forecastCardUl.appendChild(forecastTempLi);
+    // console.log(forecastTempLi.textContent);
+    // console.log(forecastWindLi.textContent);
+    // console.log(forecastHumidityLi.textContent);
 
-  //Card li - wind
-  var forecastWindLi = document.createElement("li");
-  forecastWindLi.classList = "list-group-item forecast-item fwind";
-  forecastWindLi.textContent = "Wind: " + forecastWind + " MPH"
-  forecastCardUl.appendChild(forecastWindLi);
+    //Card
+    var forecastCard = document.createElement("div");
+    forecastCard.classList = "card forecast-card";
+    // forecastCard.setAttribute("id", forecastDayCounter);
+    forecastCardGroup.appendChild(forecastCard);
 
-  //Card li - humidity
-  var forecastHumidityLi = document.createElement("li");
-  forecastHumidityLi.classList = "list-group-item forecast-item fhumidity"
-  forecastHumidityLi.textContent = "Humidity: " + forecastHumidity + " %"
-  forecastCardUl.appendChild(forecastHumidityLi);
+    //Card body
+    var forecastCardBody = document.createElement("div");
+    forecastCardBody.classList = "card-body forecast-body";
+    forecastCard.appendChild(forecastCardBody);
+
+    //Card title
+    var forecastCardTitle = document.createElement("h3");
+    forecastCardTitle.classList = "card-title forecast-title";
+    forecastCardTitle.innerHTML = forecastDate
+    forecastCardBody.appendChild(forecastCardTitle);
+
+    //Card ul
+    var forecastCardUl = document.createElement("ul");
+    forecastCardUl.classList = "list-group forecast-list";
+    forecastCardBody.appendChild(forecastCardUl);
+
+    //Card li - icon
+    var forecastIconLi = document.createElement("li");
+    forecastIconLi.classList = "list-group-item forecast-item ficon"
+    // var forecastIconContainer = document.createElement("div");
+    // var iconCode = data.daily[i].weather[0].icon;
+    // forecastIconLi = iconCode
+    console.log(iconCode);
+    forecastIconLi.innerHTML = "<img src='http://openweathermap.org/img/wn/" + iconCode + "@2x.png' width = '40px'>";
+    forecastCardUl.appendChild(forecastIconLi);
+
+    //Card li - temp
+    var forecastTempLi = document.createElement("li");
+    forecastTempLi.classList = "list-group-item forecast-item ftemp";
+    degreeF.innerHTML = "&#x2109";
+    forecastTempLi.textContent = "Temp: " + forecastTemp + " " + degreeF.innerHTML
+    forecastCardUl.appendChild(forecastTempLi);
+
+    //Card li - wind
+    var forecastWindLi = document.createElement("li");
+    forecastWindLi.classList = "list-group-item forecast-item fwind";
+    forecastWindLi.textContent = "Wind: " + forecastWind + " MPH"
+    forecastCardUl.appendChild(forecastWindLi);
+
+    //Card li - humidity
+    var forecastHumidityLi = document.createElement("li");
+    forecastHumidityLi.classList = "list-group-item forecast-item fhumidity"
+    forecastHumidityLi.textContent = "Humidity: " + forecastHumidity + " %"
+    forecastCardUl.appendChild(forecastHumidityLi);
 
 
 
-  console.log(forecastTempLi.textContent);
-  console.log(forecastWindLi.textContent);
-  console.log(forecastHumidityLi.textContent);
+    //   console.log(forecastTempLi.textContent);
+    //   console.log(forecastWindLi.textContent);
+    //   console.log(forecastHumidityLi.textContent);
+
+  }
 
 }
-
-
 
 
 

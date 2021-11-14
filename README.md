@@ -83,3 +83,6 @@ https://morioh.com/p/2c6026208e5b
 https://stackoverflow.com/questions/66553494/how-to-parse-unix-timestamps-with-luxon
 
 https://typescript.hotexamples.com/examples/luxon/DateTime/fromMillis/typescript-datetime-frommillis-method-examples.html
+
+clearing data
+https://betterprogramming.pub/dynamically-removing-children-from-a-dom-element-in-javascript-new-node-new-you-6143dabaea89
