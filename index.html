@@ -10,6 +10,10 @@
   <!-- ****** STYLING ***** -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
+  <script src="https://cdn.jsdelivr.net/npm/luxon@2.1.1/build/global/luxon.min.js"></script>
+  
+  <script src="https://cdn.polyfill.io/v3/polyfill.js?features=default,String.prototype.repeat,Array.prototype.find,Array.prototype.findIndex,Math.trunc,Math.sign,Object.is"></script>
+
   <link rel="stylesheet" href="./assets/css/style.css" />
 
   <title>Weather Dash</title>
@@ -84,67 +88,68 @@
       <!-- //dynamically add these buttons?? us a hrefs instead?
       <button type="button" class="list-group-item searchAgain list-group-item-action">A second item</button>-->
 
-      <div class="card-deck forecast-deck">
+      <div class="card-group forecast-group">
 
         <div class="card forecast-card">
           <div class="card-body forecast-body">
-            <h3 class="card-title forecast-title">day 1</h3>
+            <h3 class="card-title forecast-title">5-Day Forecast</h3>
             <ul class="list-group forecast-list">
-              <li class="list-group-item forecast-item">icon check Main</li>
-              <li class="list-group-item forecast-item">Dynamic</li>
-              <li class="list-group-item forecast-item">Dynamic</li>
-              <li class="list-group-item forecast-item">Dynamic</li>
-            </ul>
-          </div>
-        </div>
-        <div class="card forecast-card">
-          <div class="card-body forecast-body">
-            <h3 class="card-title forecast-title">day 1</h3>
-            <ul class="list-group forecast-list">
-              <li class="list-group-item forecast-item">icon check Main</li>
-              <li class="list-group-item forecast-item">Dynamic</li>
-              <li class="list-group-item forecast-item">Dynamic</li>
-              <li class="list-group-item forecast-item">Dynamic</li>
+              <li class="list-group-item forecast-item ficon">--</li>
+              <li class="list-group-item forecast-item ftemp">Wind: --</li>
+              <li class="list-group-item forecast-item fwind">Wind: --</li>
+              <li class="list-group-item forecast-item fhumidity">Humidity: --</li>
             </ul>
           </div>
         </div>
 
-        <div class="card forecast-card">
+        <!-- <div class="card forecast-card">
           <div class="card-body forecast-body">
-            <h3 class="card-title forecast-title">day 1</h3>
+            <h3 class="card-title forecast-title">Day 2</h3>
             <ul class="list-group forecast-list">
-              <li class="list-group-item forecast-item">icon check Main</li>
-              <li class="list-group-item forecast-item">Dynamic</li>
-              <li class="list-group-item forecast-item">Dynamic</li>
-              <li class="list-group-item forecast-item">Dynamic</li>
+              <li class="list-group-item forecast-item ficon">--</li>
+              <li class="list-group-item forecast-item ftemp">Wind: --</li>
+              <li class="list-group-item forecast-item fwind">Wind: --</li>
+              <li class="list-group-item forecast-item fhumidity">Humidity: --</li>
             </ul>
           </div>
         </div>
 
         <div class="card forecast-card">
           <div class="card-body forecast-body">
-            <h3 class="card-title forecast-title">day 1</h3>
+            <h3 class="card-title forecast-title">Day 3</h3>
             <ul class="list-group forecast-list">
-              <li class="list-group-item forecast-item">icon check Main</li>
-              <li class="list-group-item forecast-item">Dynamic</li>
-              <li class="list-group-item forecast-item">Dynamic</li>
-              <li class="list-group-item forecast-item">Dynamic</li>
+              <li class="list-group-item forecast-item ficon">--</li>
+              <li class="list-group-item forecast-item ftemp">Wind: --</li>
+              <li class="list-group-item forecast-item fwind">Wind: --</li>
+              <li class="list-group-item forecast-item fhumidity">Humidity: --</li>
             </ul>
           </div>
         </div>
-
 
         <div class="card forecast-card">
           <div class="card-body forecast-body">
-            <h3 class="card-title forecast-title">day 1</h3>
+            <h3 class="card-title forecast-title">Day 4</h3>
             <ul class="list-group forecast-list">
-              <li class="list-group-item forecast-item">icon check Main</li>
-              <li class="list-group-item forecast-item">Dynamic</li>
-              <li class="list-group-item forecast-item">Dynamic</li>
-              <li class="list-group-item forecast-item">Dynamic</li>
+              <li class="list-group-item forecast-item ficon">--</li>
+              <li class="list-group-item forecast-item ftemp">Wind: --</li>
+              <li class="list-group-item forecast-item fwind">Wind: --</li>
+              <li class="list-group-item forecast-item fhumidity">Humidity: --</li>
             </ul>
           </div>
-        </div>
+        </div> -->
+
+<!-- 
+        <div class="card forecast-card">
+          <div class="card-body forecast-body">
+            <h3 class="card-title forecast-title">Day 5</h3>
+            <ul class="list-group forecast-list">
+              <li class="list-group-item forecast-item ficon">--</li>
+              <li class="list-group-item forecast-item ftemp">Wind: --</li>
+              <li class="list-group-item forecast-item fwind">Wind: --</li>
+              <li class="list-group-item forecast-item fhumidity">Humidity: --</li>
+            </ul>
+          </div>
+        </div> -->
 
      </div>
     </div>
@@ -164,6 +169,7 @@
         rel="stylesheet">
 
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
 
       <script src="./assets/js/test.js"></script>
 

@@ -76,3 +76,10 @@ https://www.encodedna.com/javascript/dynamically-create-html-elements-using-crea
 API- current icons
 https://openweathermap.org/weather-conditions
 https://stackoverflow.com/questions/44177417/how-to-display-openweathermap-weather-icon
+
+DateTime Luxon
+https://morioh.com/p/2c6026208e5b
+
+https://stackoverflow.com/questions/66553494/how-to-parse-unix-timestamps-with-luxon
+
+https://typescript.hotexamples.com/examples/luxon/DateTime/fromMillis/typescript-datetime-frommillis-method-examples.html
