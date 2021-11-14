@@ -243,7 +243,7 @@ function saveCities(cityName) {
 }
 
 
-/* set searched city variables */
+/* set searched city variables DYNAMIC */
 var savedCityCard = document.querySelector(".city-card");
 var savedCityCardBody = document.createElement("div");
 savedCityCard.appendChild(savedCityCardBody);
@@ -257,6 +257,9 @@ savedCityCardBody.appendChild(savedCityCardTitle);
 var savedCityCardUl = document.createElement("ul");
 savedCityCardUl.classList = "list-group city-list";
 savedCityCardBody.appendChild(savedCityCardUl);
+
+/* add to Searched Citites List */
+var savedCityLi = $("<li>").addClass("list-group-item");
 
 
 
@@ -293,17 +296,17 @@ function getSavedCities() {
 
     // clearForecastCards()
 
-    //     function clearForecastCards() {
-    //       while (forecastCardGroup.firstChild) {
-    //         forecastCardGroup.removeChild(forecastCardGroup.firstChild);
+    //     function clearSavedCiti() {
+    //       while (savedCityCardUl.firstChild) {
+    //        savedCityCardUl.removeChild(savedCityCardUl.firstChild);
     //       };
 
     if (cityName) {
       //get weather data using cityName var in getWeather function
+
       getCoord(cityName);
       //clear input field
       cityNameInputEl.value = "";
-
 
       savedCityBtn.textContent = "";
 
@@ -323,6 +326,30 @@ function getSavedCities() {
 
 
 userFormEl.addEventListener("submit", formSubmitHandler);
+
+
+
+
+
+
+// if thre is a button that has text that mathces this do nto create a new button
+
+// oR 
+//  delete all buttons and make fresh from new Array
+//  oR
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
