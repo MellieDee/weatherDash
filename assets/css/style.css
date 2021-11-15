@@ -130,18 +130,29 @@ font-size: 1.1em;
  color: #152744;
  background-color: #F1C15A;
 }
-
 .saved-city-btn {
   font-size: 1.3em;
 }
 
+/* components for delete btn enhancement 
+.clear-cities-btn {
+  background-color: #962129;
+  color: #F1C15A;
+  width: 40%;
+  font-size: 1em;
+  padding: 0.25em;
+}
+
+.clear-cities-btn:hover {
+  color: white;
+  background-color: #d4156e;
+ }
+  */
+
+
 .city-card-title {
   padding: 0.8em;
 }
-/* .main-result {
-  border: 1px solid #F1C15A;
-  margin: 0.3em;
-} */
 
 #icon {
   border: none;

@@ -24,11 +24,30 @@ var currentHumidity = document.createElement("li");
 var currentUv = document.createElement("li");
 var currentCityEl = document.querySelector("#current-city-details");
 
+/* set searched city variables DYNAMIC */
+var savedCityCard = document.querySelector(".city-card");
+var savedCityCardBody = document.createElement("div");
+savedCityCard.appendChild(savedCityCardBody);
+
+var savedCityCardTitle = document.createElement("h3");
+savedCityCardTitle.classList = "card-title city-card-title";
+savedCityCardTitle.innerHTML = "Searched Cities"
+savedCityCardBody.appendChild(savedCityCardTitle);
+
+var savedCityCardUl = document.createElement("ul");
+savedCityCardUl.classList = "list-group city-list";
+savedCityCardBody.appendChild(savedCityCardUl);
+
+
+/* add to Searched Citites List */
+var savedCityLi = $("<li>").addClass("list-group-item");
+
 
 /* misc variables for API calls */
 var lat = "";
 var lon = "";
 var savedCities = []
+
 
 
 /*****    Input Form Handling*****/
@@ -144,18 +163,19 @@ var oneCall = function (lat, lon, name) {
 
           // create colors for UV Index
           var uvIndex = data.current.uvi
-        
-          if (uvIndex <= 2.99) {
-           // currentUv.setAttribute("style", "background-color: green");
-          currentUv.style.cssText = "color: #f5efc4; background-color: green";
-          } 
-           else if  (uvIndex >= 3 && uvIndex <= 5.99) {
-           currentUv.style.backgroundColor = "orange";
 
-           } 
-           else { (uvIndex >= 6) 
+          if (uvIndex <= 2.99) {
+            // currentUv.setAttribute("style", "background-color: green");
+            currentUv.style.cssText = "color: #f5efc4; background-color: green";
+          }
+          else if (uvIndex >= 3 && uvIndex <= 5.99) {
+            currentUv.style.backgroundColor = "orange";
+
+          }
+          else {
+            (uvIndex >= 6)
             currentUv.style.cssText = "color: #f5efc4; background-color: #962129";
-           }
+          }
 
 
           //***   APPEND to Containers (end of list/bottom child) for Main Card ***
@@ -195,7 +215,6 @@ function createForecastCards(data) {
     //Card
     var forecastCard = document.createElement("div");
     forecastCard.classList = "card forecast-card";
-    // forecastCard.setAttribute("id", forecastDayCounter);
     forecastCardGroup.appendChild(forecastCard);
 
     //Card body
@@ -246,10 +265,7 @@ function createForecastCards(data) {
   }
 }
 
-function clearCityList(forecastCardUl) {
-  local.storage.clear();
-  forecastCardUl.style.display = "none"
-}
+
 
 /**** SET CITY NAMES TO LOCAL STORAGE   ***/
 function saveCities(cityName) {
@@ -263,33 +279,15 @@ function saveCities(cityName) {
     localStorage.setItem("city", JSON.stringify(savedCities))
     console.log(savedCities);
   }
-  clearCityList()
 
+/**  Replaces city names in search list so doesnt duplicate */
+  clearCityList()
   function clearCityList() {
     while (savedCityCardUl.firstChild) {
       savedCityCardUl.removeChild(savedCityCardUl.firstChild);
     };
   }
 }
-
-/* set searched city variables DYNAMIC */
-var savedCityCard = document.querySelector(".city-card");
-var savedCityCardBody = document.createElement("div");
-savedCityCard.appendChild(savedCityCardBody);
-
-var savedCityCardTitle = document.createElement("h3");
-savedCityCardTitle.classList = "card-title city-card-title";
-savedCityCardTitle.innerHTML = "Searched Cities"
-savedCityCardBody.appendChild(savedCityCardTitle);
-
-
-var savedCityCardUl = document.createElement("ul");
-savedCityCardUl.classList = "list-group city-list";
-savedCityCardBody.appendChild(savedCityCardUl);
-
-/* add to Searched Citites List */
-var savedCityLi = $("<li>").addClass("list-group-item");
-
 
 
 function getSavedCities() {
@@ -331,100 +329,26 @@ function getSavedCities() {
     };
     return cityName;
   })
-
-
 }
 
 
 userFormEl.addEventListener("submit", formSubmitHandler);
 
+/**  Components for delete btn enhancement */
+
+// var clearCitiesBtn = document.createElement("button");
+// clearCitiesBtn.classList = "clear-cities-btn  btn mx-auto my-2"
+// clearCitiesBtn.setAttribute("type", "button")
+// savedCityCard.appendChild(clearCitiesBtn)
+//clearCitiesBtn.textContent = "Delete Saved Cities"
 
 
 
-
-
-// if thre is a button that has text that mathces this do nto create a new button
-
-// oR 
-//  delete all buttons and make fresh from new Array
-//  oR
-
- //create a new button
-
-    // if city is NOT in array then DO create new BTTon 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// $(“.saved-city-btn”).on(“click”, function(event) {
-//   var cityName = $(this).text()
-//   getCoord(cityName)
+// function deleteCityList(forecastCardUl) {
+//   localStorage.clear();
+//   forecastCardUl.innerHTML = "none";
 // }
 
-// savedCityCardLi.addEventListener("submit", resubmit)
 
-
-
-
-//  for (let i = 0; i <  savedCities.length; i++) {
-// var savedCitiesListContainerUl = document.querySelector("saved-citites-list-container")
-// var savedCityListItem = document.createElement("li")
-// var savedCityBtn = document.createElement("button")
-
-
-// savedCityListItem.classList = "list-group-item saved-city"
-// savedCityBtn.classList = "btn saved-city-btn"
-// savedCityBtn.setAttribute
-
-// savedCitiesListContainerUl.appendChild(savedCityListItem)
-// savedCityListItem.appendChild(savedCityBtn)
-
-/****jQUERY **** */
-
-// let keys = Object.keys(localStorage)
-// // let test = localStorage.getItem(cityName)
-// console.log(keys)
-// for (let i = 0; i < keys.length; i++) {
-//     $(“.city-btns”).append(“<li><button class=‘btn-list-search’>“+keys[i]+“</button></li>“)
-// }
-// $(“.btn-list-search”).on(“click”, function(event) {
-//     var cityName = $(this).text()
-/****   jQuery  **** */
-//  }
-// }
-
-//   //parse
-//   savedCities
-//   for (var i = 0; i < previousCities.length; i++) {
-//     console.log(previousCities[i])
-
-//     //   var previousCityEl = document.createElement("a");
-//     //   previousCityEl.setAttribute("href", "#");
-//     //   previousCityEl.classList =  "dropdown-item previous-city-list-item";
-
-//     //   previousCityEl.textContent = previousCityArray[i];
-
-//     //  previousCitiesListContainer.appendChild(previousCityEl);
-//   }
-// }
-// getSavedCities();
-
-
-
-
+/**   Event Listeners  ***/
+// clearCitiesBtn.addEventListener("click", deleteCityList);
