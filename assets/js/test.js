@@ -87,7 +87,7 @@ var getCoord = function (cityName) {
           });
 
       } else {
-        (!response.ok)
+        // (!response.ok)
         alert("Error: Please enter a real city name.");
         savedCities.pop(savedCities.length + 1);
       }
@@ -143,22 +143,19 @@ var oneCall = function (lat, lon, name) {
 
 
           // create colors for UV Index
-          var uvIndex = 7
-          // var uvIndex = data.current.uvi
-          // console.log(data.current.uvi);
-          alert(uvIndex)
+          var uvIndex = data.current.uvi
+        
+          if (uvIndex <= 2.99) {
+           // currentUv.setAttribute("style", "background-color: green");
+          currentUv.style.cssText = "color: #f5efc4; background-color: green";
+          } 
+           else if  (uvIndex >= 3 && uvIndex <= 5.99) {
+           currentUv.style.backgroundColor = "orange";
 
-          if (uvIndex <= 2) {
-            // currentUv.setAttribute("style", "background-color: green");
-            currentUv.style.cssText = "color: #f5efc4; background-color: green";
-
-          } else if (3 <= uvIndex <= 5) {
-            currentUv.style.backgroundColor = "orange";
-
-          } else {
-            (6 <= uvIndex)
-            currentUv.style.backgroundColor = "red";
-          }
+           } 
+           else { (uvIndex >= 6) 
+            currentUv.style.cssText = "color: #f5efc4; background-color: #962129";
+           }
 
 
           //***   APPEND to Containers (end of list/bottom child) for Main Card ***
@@ -249,7 +246,10 @@ function createForecastCards(data) {
   }
 }
 
-
+function clearCityList(forecastCardUl) {
+  local.storage.clear();
+  forecastCardUl.style.display = "none"
+}
 
 /**** SET CITY NAMES TO LOCAL STORAGE   ***/
 function saveCities(cityName) {
