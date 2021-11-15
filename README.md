@@ -82,6 +82,20 @@ Get your weather here [weather dash homepage](https://melliedee.github.io/weathe
 
 
 
+### Other Notes
+***
+Ideas for future enhancements -
+- Button for clearing/deleting cities
+- Animated menus
+-  Search for within specific country
+  - Check for response city in US, if not then iterate through and find in data
+
+- Modal for entering error proper city name/check misspelling
+- Refactor w/jQ
+- Set Favorite location weather to persist
+&nbsp;
+
+
 ### Resources I like or am inspired by
 ***
 https://openweathermap.org/
