@@ -147,7 +147,7 @@ var oneCall = function (lat, lon, name) {
             console.log(data.current.weather[0].icon)
           }
           var iconCode = data.current.weather[0].icon;
-          currentIcon.innerHTML = "<img src='http://openweathermap.org/img/wn/" + iconCode + "@2x.png' width = '40px'>";
+          currentIcon.innerHTML = "<img src='http://openweathermap.org/img/wn/" + iconCode + "@2x.png' width = '40px'>"
 
           var temp = (Math.round(data.current.temp * 10) / 10)
           var wind = (Math.round(data.current.wind_speed * 10) / 10)
