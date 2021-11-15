@@ -54,13 +54,16 @@ header h1 {
   margin: 0;
   font-size: 2em;
   color: var(--secondary-color);
-  text-shadow: 0px 0 10px rgba(40, 76, 133, 0.5);
+  text-shadow: 0px 0 10px rgba(245, 239, 196, 0.7);
 }
+
+
 
 .hero-form h2, .card h2 {
 font-weight: bold;
 font-size: 1.1em;
 }
+
 .hero {
   /* background-color: var(--primary-color); */
   background-image: url('../images/skyBg.png');
@@ -146,18 +149,6 @@ font-size: 1.1em;
   padding: 0.5em 0;
 }
 
-/****  between 280px & 360px ******/
-/* @media screen and (min-width: 360px) {
-\
-} */
-
-  /* ***   576px and smaller *****
- @media screen and (min-width: 576px) {
-  .card {
-    width: 20%;
-  }
-}  */
-
   /*** MQ FOR SMALLER/MEDIUM SCREENS  and LARGER TABLETS,  LAPTOPS  DESKTOPS  ***/
 @media screen and (min-width: 576px) {
 
@@ -176,7 +167,7 @@ font-size: 1.1em;
   } 
 
   header h1 {
-  font-size: 1.8em;
+  font-size: 2.3em;
   }
 
   .hero-form {
@@ -199,9 +190,11 @@ font-size: 1.1em;
 
   .list-group-item {
     font-size: 0.8em;
+    padding: 0.7em;
     }
 }
  
+  /*   Media Queries medium screens & tablets */
  @media screen and (min-width: 768px) {
     body {
       font-size: 18px;
@@ -220,17 +213,13 @@ font-size: 1.1em;
     .justify-content-center {
       justify-content: center!important;
   }
-     /* .forecast-card {
-     min-width: 20rem; 
-     margin: 0; 
-     }   */
 
-   /* .list-group-item {
+   .forecast-item {
     font-size: 0.6em;
-    } */
-
+    }
   } 
 
+  /*   Media Queries large screens & desktop */
   @media screen and (min-width: 980px) {
     body {
       font-size: 20px;

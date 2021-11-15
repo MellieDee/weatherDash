@@ -31,7 +31,7 @@ var lon = "";
 var savedCities = []
 
 
-/*****    EVENT HANDLERS START *****/
+/*****    Input Form Handling*****/
 let formSubmitHandler = function (event) {
   event.preventDefault();
   //confirm desired event
@@ -56,7 +56,7 @@ let formSubmitHandler = function (event) {
   console.log(cityName);
   return cityName;
 }
-//possibly add function to check if country code is US 
+//Possible Enhancement:  add function to check if country code is US 
 
 
 // /**** STEP 1 - Get City Coordinates from 5-Day Forecast API Endpoint: ****/
@@ -123,39 +123,46 @@ var oneCall = function (lat, lon, name) {
           currentUv.classList = "list-group-item";
 
           //***  Assign Content to Main Card Elements    ***
+          //   icon
           for (var i = 0; i < data.current.weather.length; i++) {
             console.log(data.current.weather[0].icon)
           }
           var iconCode = data.current.weather[0].icon;
           currentIcon.innerHTML = "<img src='http://openweathermap.org/img/wn/" + iconCode + "@2x.png' width = '40px'>";
 
-          currentCityName.innerHTML = name + "   " + mainCityDate + "   " + currentIcon.innerHTML
+          var temp = (Math.round(data.current.temp * 10) / 10)
+          var wind = (Math.round(data.current.wind_speed * 10) / 10)
 
+          currentCityName.innerHTML = name + "   " + mainCityDate + "   " + currentIcon.innerHTML
+          //main card info points
           degreeF.innerHTML = "&#x2109";
-          currentTemp.textContent = "Temp: " + data.current.temp + " " + degreeF.innerHTML;
-          currentWind.textContent = "Wind: " + data.current.wind_speed + " MPH"
+          currentTemp.textContent = "Temp: " + temp + " " + degreeF.innerHTML;
+          currentWind.textContent = "Wind: " + wind + " MPH"
           currentHumidity.textContent = "Humidity: " + data.current.humidity + " %"
           currentUv.textContent = "UV Index: " + data.current.uvi;
 
 
           // create colors for UV Index
-          console.log(data.current.uvi);
+          var uvIndex = 7
+          // var uvIndex = data.current.uvi
+          // console.log(data.current.uvi);
+          alert(uvIndex)
 
-          if (data.current.uvi <= 2) {
-          currentUv.setAttribute("style", "background-color: green")
+          if (uvIndex <= 2) {
+            // currentUv.setAttribute("style", "background-color: green");
+            currentUv.style.cssText = "color: #f5efc4; background-color: green";
 
-            // currentUv.style.backgroundColor = "green";
-          } else if ( 3 <= data.current.uvi <= 5) {
+          } else if (3 <= uvIndex <= 5) {
             currentUv.style.backgroundColor = "orange";
-          } else {
-            (6 <= data.current.uvi)
-            currentUv.style.backgroundColor = "red";
 
+          } else {
+            (6 <= uvIndex)
+            currentUv.style.backgroundColor = "red";
           }
 
 
-            //***   APPEND to Containers (end of list/bottom child) for Main Card ***
-            currentIconContainer.appendChild(currentIcon)
+          //***   APPEND to Containers (end of list/bottom child) for Main Card ***
+          currentIconContainer.appendChild(currentIcon)
           currentCityEl.appendChild(currentTemp);
           currentCityEl.appendChild(currentWind);
           currentCityEl.appendChild(currentHumidity);
@@ -183,9 +190,9 @@ function createForecastCards(data) {
     //convert to string from epoch seconds using Luxon
     var forecastDate = DateTime.fromSeconds(forecastTime).toLocaleString();
     var iconCode = data.daily[i].weather[0].icon;
-    var forecastTemp = data.daily[i].temp.day
-    var forecastWind = data.daily[i].wind_speed
-    var forecastHumidity = data.daily[i].humidity
+    var forecastTemp = (Math.round(data.daily[i].temp.day * 10) / 10);
+    var forecastWind = (Math.round(data.daily[i].wind_speed * 10) / 10);
+    var forecastHumidity = (Math.round(data.daily[i].humidity * 10) / 10)
 
 
     //Card
@@ -216,6 +223,7 @@ function createForecastCards(data) {
     // var forecastIconContainer = document.createElement("div");
     // var iconCode = data.daily[i].weather[0].icon;
     // forecastIconLi = iconCode
+    forecastIconLi.style.backgroundColor = "#f0ad6e";
     console.log(iconCode);
     forecastIconLi.innerHTML = "<img src='http://openweathermap.org/img/wn/" + iconCode + "@2x.png' width = '40px'>";
     forecastCardUl.appendChild(forecastIconLi);
