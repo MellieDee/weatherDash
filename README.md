@@ -40,7 +40,7 @@ To see the weather outlook for multiple cities as desired.
 
 ## Weather Dash URL
 ***
-Get your weather here *[weather dash homepage](https://melliedee.github.io/weatherDash/)
+Get your weather here [weather dash homepage](https://melliedee.github.io/weatherDash/)
 
 
 
@@ -61,7 +61,8 @@ Get your weather here *[weather dash homepage](https://melliedee.github.io/weath
 ***
 https://openweathermap.org/
 endpoint for call:
-api.openweathermap.org.
+
+https://stackoverflow.com/questions/44177417/how-to-display-openweathermap-weather-icon
 
 https://www.iso.org/iso-3166-country-codes.html
 

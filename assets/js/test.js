@@ -146,8 +146,14 @@ var oneCall = function (lat, lon, name) {
           for (var i = 0; i < data.current.weather.length; i++) {
             console.log(data.current.weather[0].icon)
           }
-          var iconCode = data.current.weather[0].icon;
-          currentIcon.innerHTML = "<img src='http://openweathermap.org/img/wn/" + iconCode + "@2x.png' width = '40px'>";
+          // var iconCode = data.current.weather[0].icon;
+          // currentIcon.innerHTML = "<img src='http://openweathermap.org/img/wn/" + iconCode + "@2x.png' width = '40px'>";
+          // // currentIcon.innerHTML = "<img src='http://openweathermap.org/img/wn/" + iconCode + "@2x.png' width = '40px'>";
+
+          const {icon} = data.current.weather[0].icon;
+          currentIcon.innerHTML = `<img src="/images/openweatherpay-api-icons-master/icons/${icon}.png">;`
+          // let locationIcon = document.querySelector('.weather-icon');
+
 
           var temp = (Math.round(data.current.temp * 10) / 10)
           var wind = (Math.round(data.current.wind_speed * 10) / 10)
