@@ -1,68 +1,56 @@
-/***PSEUDO CODE FOR WEATHER APP ***
-
-do I need to geocode first?? then enter that data intot he api weather call??
-create input field/form in div close.
-create button
-add event listener to GamepadButtonsave data to lS?
-enters data into and  intiates API Call
-capture data from input field
-set to var then enter in GEO API
-Get lat/long from geoAPI:
-search through all of the items i the array until find one where the city state match, (usual i=0)
-creat var(s) for Lat/lon and pass through as string? to API call for weather
-then need to get specific parts of/attributs of that weather data response:
-city name
-date
-ico
-tempF
-wind MPH
-Humidty%
-UV In with color
-
-(create color bg if else satement
-put into HTML divs and cards
-save each line or card? with sep id unique Key to local Storage
-save also list and main summary to local storage
-set button action to histrpy ist
-ceate those dynamic HTML
-
-What about cities with ' in the names or 
-
-trim removes white spaces for two words two words???
-create error if no comma
-make state a drop-down menu?
-what about change to caps/lowercase for api
- 
-if no commoaa then assume it is a  just a city
-
-USE taskinator Pro to save all data mpoints??
-
-
-STYLES:   Badges for UV or is that part of API? 
-go back fix:
- colors
- background images?
- convert to function() { as opposed to  var XX = function}
-
-
-/************************************ */
-
-
 /****     VARIABLES    ******/
+/* set date */
+var DateTime = luxon.DateTime;
+var localTime = DateTime.local();
+console.log(localTime.toString())
+
+/* set userForm vriables */
 var userFormEl = document.querySelector("#city-search-form");
 var cityNameInputEl = document.querySelector("#city-name");
 
-// var searchHistoryContainerEl = document.querySelector("#search-history-container");
-var previousCitiesListContainer = document.querySelector("#previous-cities-list-container");
-// var previousCityTerm = document.querySelector("#previous-city");
+// /* set forecast variables */
+var forecastCardGroup = document.querySelector(".forecast-group");
+var forecastCard = document.createElement("div");
+forecastCardGroup.appendChild(forecastCard);
+
+
+/* set current  variables */
+var currentIconContainer = document.createElement("div");
+var currentIcon = document.createElement("i");
+var currentTemp = document.createElement("li");
+var degreeF = document.createElement("span");
+var currentWind = document.createElement("li");
+var currentHumidity = document.createElement("li");
+var currentUv = document.createElement("li");
 var currentCityEl = document.querySelector("#current-city-details");
+
+/* set searched city variables DYNAMIC */
+var savedCityCard = document.querySelector(".city-card");
+var savedCityCardBody = document.createElement("div");
+savedCityCard.appendChild(savedCityCardBody);
+
+var savedCityCardTitle = document.createElement("h3");
+savedCityCardTitle.classList = "card-title city-card-title";
+savedCityCardTitle.innerHTML = "Searched Cities"
+savedCityCardBody.appendChild(savedCityCardTitle);
+
+var savedCityCardUl = document.createElement("ul");
+savedCityCardUl.classList = "list-group city-list";
+savedCityCardBody.appendChild(savedCityCardUl);
+
+
+/* add to Searched Citites List */
+var savedCityLi = $("<li>").addClass("list-group-item");
+
+
+/* misc variables for API calls */
 var lat = "";
 var lon = "";
-var previousCities = []
+var savedCities = []
 
 
 
-/*****    EVENT HANDLERS START *****/
+/*****    Input Form Handling*****/
 let formSubmitHandler = function (event) {
   event.preventDefault();
   //confirm desired event
@@ -76,109 +64,59 @@ let formSubmitHandler = function (event) {
   // console.log(cityName);
   if (cityName) {
     //get weather data using cityName var in getWeather function
-    getWeather(cityName);
+    getCoord(cityName);
     //clear input field
     cityNameInputEl.value = "";
+    // forecastCard.innerHTML = ""
   } else {
     //update to modal later
     alert("Please enter a valid US City name.");
   };
   console.log(cityName);
   return cityName;
-};
-
-//possibly add function to account for state reference and comma
-//convert state to Upper
-// let cityState = cityName.split(',')[1];
-// console.log(cityState);
-// if (cityState.length > 2){
-//   alert("Please use 2 character state abbreviation")
-// } else {
-//   let cityStateUp = cityState.toUpperCase();
-//   console.log(cityStateUp)
-// }
-// };
+}
+//Possible Enhancement:  add function to check if country code is US 
 
 
-/****  STEP 1: Get Weather Data  By City  *******/
-var getWeather = function (cityName) {
+// /**** STEP 1 - Get City Coordinates from 5-Day Forecast API Endpoint: ****/
+var getCoord = function (cityName) {
+
   saveCities(cityName);
-  var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&appid=299ebedfe3926f8c9e100c54f9104d93";
+  getSavedCities();
+
+  var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&units=imperial&appid=299ebedfe3926f8c9e100c54f9104d93";
+  // var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&appid=299ebedfe3926f8c9e100c54f9104d93";
   // console.log(apiUrl);
 
-  //make request to URL
+
+  //make request to URL 5-Day Forecast API Endpoint
   fetch(apiUrl)
     .then(function (response) {
-      response.json()
-        .then(function (data) {
-          //console.log as check then display in main card
-          console.log(data);
+      if (response.ok) {
+        response.json()
+          .then(function (data) {
+            //console.log as check then display in main card
+            console.log(data);
+            console.log(data.city.name);
+            console.log(data.city.country);
+            //maybe incorporate if statement to check for US as countrycode?
 
+            //pass coordinates through call for weather data
+            oneCall(data.city.coord.lat, data.city.coord.lon, data.city.name)
+          });
 
-          //*** DYNAMICALLY CREATE ELEMENTS for MAIN CARD   ***
-          var currentCityName = document.getElementById("current-city-name")
-
-          var today = data.dt
-          var date = new Date(today * 1000);
-          var dateCity = date.textContent = (moment().format("MM/DD/YYYY"));
-
-          var currentIconContainer = document.createElement("div");
-          var currentIcon = document.createElement("i");
-          var currentIconContainer = document.createElement("div");
-          var currentTemp = document.createElement("li");
-          var degreeF = document.createElement("span");
-          var currentWind = document.createElement("li");
-          var currentHumidity = document.createElement("li");
-          // var currentUv = document.createElement("li");
-
-          //***  Assign CLASSES & IDs to ELEMENTS    ***
-          currentCityName.classList = "card-header main-header";
-          currentIcon.classList = "weather-icon";
-          currentIconContainer.setAttribute("id", "icon")
-          // currentCityName.setAttribute("id", "current-city");
-          //consolidate these later
-          currentTemp.classList = "list-group-item";
-          currentWind.classList = "list-group-item";
-          currentHumidity.classList = "list-group-item";
-
-
-          //***  Assign CONTENT to ELEMENTS    ***
-          currentCityName.innerHTML = data.name + "   " + dateCity;
-          for (var i = 0; i < data.length; i++) {
-            console.log(data.weather[0].icon)
-          }
-          var iconCode = data.weather[0].icon;
-          // currentIcon.innerHTML = '<img src="http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png">';
-
-          currentIcon.innerHTML = "<img src='http://openweathermap.org/img/wn/" + iconCode + "@2x.png'>";
-
-
-          degreeF.innerHTML = "&#x2109";
-          currentTemp.textContent = "Temp: " + data.main.temp + " " + degreeF.innerHTML;
-          currentWind.textContent = "Wind: " + data.wind.speed + " MPH"
-          currentHumidity.textContent = "Humidity: " + data.main.humidity + " %"
-          // currentUv.textContent = "badge & coor tbd"
-
-
-
-          //***   APPEND to Containers to end of list ie most bottom child***
-          currentIconContainer.appendChild(currentIcon)
-          currentCityEl.appendChild(currentIconContainer);
-          currentCityEl.appendChild(currentTemp);
-          currentCityEl.appendChild(currentWind);
-          currentCityEl.appendChild(currentHumidity);
-          // currentCityEl.appendChild(currentUv);
-          // };
-
-
-          oneCall(data.coord.lat, data.coord.lon)
-        });
+      } else {
+        // (!response.ok)
+        alert("Error: Please enter a real city name.");
+        savedCities.pop(savedCities.length + 1);
+      }
     })
 }
 
 
-var oneCall = function (lat, lon) {
-  var oneCallUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly&appid=299ebedfe3926f8c9e100c54f9104d93";
+//****    STEP 2: Get Weather data, Create & fill Main & Forecast Cards ***/
+var oneCall = function (lat, lon, name) {
+  var oneCallUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly&units=imperial&appid=299ebedfe3926f8c9e100c54f9104d93";
   console.log(oneCallUrl)
 
   fetch(oneCallUrl)
@@ -186,159 +124,234 @@ var oneCall = function (lat, lon) {
       response.json()
         .then(function (data) {
           //console.log as check then display in main card
-          console.log(data);
-        })
-    })
 
-  //set up cards dynamically with for loop
+          //*** DYNAMICALLY CREATE ELEMENTS for MAIN CARD  STARTS   ***
+          var currentCityName = document.getElementById("current-city-name")
+
+          var callTime = data.current.dt
+          //convert to string from epoch seconds using Luxon
+          var mainCityDate = DateTime.fromSeconds(callTime).toLocaleString();
+          console.log(mainCityDate);
+
+          //***  Assign identifiers to Main Card Elements   ***
+          currentIcon.classList = "weather-icon"
+          currentIconContainer.setAttribute("id", "icon")
+          currentTemp.classList = "list-group-item";
+          currentWind.classList = "list-group-item";
+          currentHumidity.classList = "list-group-item";
+          currentUv.classList = "list-group-item";
+
+          //***  Assign Content to Main Card Elements    ***
+          //   icon
+          for (var i = 0; i < data.current.weather.length; i++) {
+            console.log(data.current.weather[0].icon)
+          }
+          var iconCode = data.current.weather[0].icon
+          currentIcon.innerHTML = "<img src='http://openweathermap.org/img/wn/" + iconCode + "@2x.png' width = '40px'>";
+
+          var temp = (Math.round(data.current.temp * 10) / 10)
+          var wind = (Math.round(data.current.wind_speed * 10) / 10)
+
+
+
+
+          currentCityName.innerHTML = name + "   " + mainCityDate + "   " + currentIcon.innerHTML
+          //main card info points
+          degreeF.innerHTML = "&#x2109";
+          currentTemp.textContent = "Temp: " + temp + " " + degreeF.innerHTML;
+          currentWind.textContent = "Wind: " + wind + " MPH"
+          currentHumidity.textContent = "Humidity: " + data.current.humidity + " %"
+          currentUv.textContent = "UV Index: " + data.current.uvi;
+
+
+          // create colors for UV Index
+          var uvIndex = data.current.uvi
+
+          if (uvIndex <= 2.99) {
+            // currentUv.setAttribute("style", "background-color: green");
+            currentUv.style.cssText = "color: #f5efc4; background-color: green";
+          }
+          else if (uvIndex >= 3 && uvIndex <= 5.99) {
+            currentUv.style.backgroundColor = "orange";
+
+          }
+          else {
+            (uvIndex >= 6)
+            currentUv.style.cssText = "color: #f5efc4; background-color: #962129";
+          }
+
+
+          //***   APPEND to Containers (end of list/bottom child) for Main Card ***
+          currentIconContainer.appendChild(currentIcon)
+          currentCityEl.appendChild(currentTemp);
+          currentCityEl.appendChild(currentWind);
+          currentCityEl.appendChild(currentHumidity);
+          currentCityEl.appendChild(currentUv);
+          /****     MAIN CARD ENDS      ******/
+          console.log(data);
+
+          clearForecastCards()
+
+          function clearForecastCards() {
+            while (forecastCardGroup.firstChild) {
+              forecastCardGroup.removeChild(forecastCardGroup.firstChild);
+            };
+          } createForecastCards(data)
+        })
+    });
 }
+
+
+//***  Function to Dynamically Create Forcast Cards */
+function createForecastCards(data) {
+
+  for (var i = 1; i < 6; i++) {
+    var forecastTime = data.daily[i].dt
+    //convert to string from epoch seconds using Luxon
+    var forecastDate = DateTime.fromSeconds(forecastTime).toLocaleString();
+    var iconCode = data.daily[i].weather[0].icon;
+    var forecastTemp = (Math.round(data.daily[i].temp.day * 10) / 10);
+    var forecastWind = (Math.round(data.daily[i].wind_speed * 10) / 10);
+    var forecastHumidity = (Math.round(data.daily[i].humidity * 10) / 10)
+
+
+    //Card
+    var forecastCard = document.createElement("div");
+    forecastCard.classList = "card forecast-card";
+    forecastCardGroup.appendChild(forecastCard);
+
+    //Card body
+    var forecastCardBody = document.createElement("div");
+    forecastCardBody.classList = "card-body forecast-body";
+    forecastCard.appendChild(forecastCardBody);
+
+    //Card title
+    var forecastCardTitle = document.createElement("h3");
+    forecastCardTitle.classList = "card-title forecast-title";
+    forecastCardTitle.innerHTML = forecastDate
+    forecastCardBody.appendChild(forecastCardTitle);
+
+    //Card ul
+    var forecastCardUl = document.createElement("ul");
+    forecastCardUl.classList = "list-group forecast-list";
+    forecastCardBody.appendChild(forecastCardUl);
+
+    //Card li - icon
+    var forecastIconLi = document.createElement("li");
+    forecastIconLi.classList = "list-group-item forecast-item ficon"
+    // var forecastIconContainer = document.createElement("div");
+    // var iconCode = data.daily[i].weather[0].icon;
+    // forecastIconLi = iconCode
+    forecastIconLi.style.backgroundColor = "#f0ad6e";
+    console.log(iconCode);
+    forecastIconLi.innerHTML = "<img src='http://openweathermap.org/img/wn/" + iconCode + "@2x.png' width = '40px'>";
+    forecastCardUl.appendChild(forecastIconLi);
+
+    //Card li - temp
+    var forecastTempLi = document.createElement("li");
+    forecastTempLi.classList = "list-group-item forecast-item ftemp";
+    degreeF.innerHTML = "&#x2109";
+    forecastTempLi.textContent = "Temp: " + forecastTemp + " " + degreeF.innerHTML
+    forecastCardUl.appendChild(forecastTempLi);
+
+    //Card li - wind
+    var forecastWindLi = document.createElement("li");
+    forecastWindLi.classList = "list-group-item forecast-item fwind";
+    forecastWindLi.textContent = "Wind: " + forecastWind + " MPH"
+    forecastCardUl.appendChild(forecastWindLi);
+
+    //Card li - humidity
+    var forecastHumidityLi = document.createElement("li");
+    forecastHumidityLi.classList = "list-group-item forecast-item fhumidity"
+    forecastHumidityLi.textContent = "Humidity: " + forecastHumidity + " %"
+    forecastCardUl.appendChild(forecastHumidityLi);
+  }
+}
+
+
 
 /**** SET CITY NAMES TO LOCAL STORAGE   ***/
-var saveCities = function (cityName) {
-  previousCities.push(cityName)
-  localStorage.setItem("city", JSON.stringify(previousCities))
-}
-
-var getPreviousCities = function () {
-  //getting KEY from local storage and Key has value of the ARRAY
-  var previousCityArray = JSON.parse(localStorage.getItem("city"));
-
-  for (var i = 0; i < previousCityArray.length; i++) {
-
-    var previousCityEl = document.createElement("button");
-    previousCityEl.setAttribute("type", "button");
-    previousCityEl.classList = "list-group-item btn previousCityBtn";
-    previousCityEl.textContent = previousCityArray[i];
-
-   previousCitiesListContainer.appendChild(previousCityEl);
+function saveCities(cityName) {
+  if (savedCities.includes(cityName)) {
+    // alert("true")
+    let popped = savedCities.pop();
+    console.log(popped);
+  } else {
+    // alert("false");
+    savedCities.push(cityName)
+    localStorage.setItem("city", JSON.stringify(savedCities))
+    console.log(savedCities);
   }
 
+/**  Replaces city names in search list so doesnt duplicate */
+  clearCityList()
+  function clearCityList() {
+    while (savedCityCardUl.firstChild) {
+      savedCityCardUl.removeChild(savedCityCardUl.firstChild);
+    };
+  }
 }
-// function displaySearchHistory() {
-
-  // if (cities.length === 0) {
-  //   searchHistoryContainerEl.textContent = "Sorry - couldn't find weather for that city. Check spelling or add 2-letter state abbreviation?";
-  //   return;
-  // }
-  // previousCityTerm.textContent = searchTerm
-
-  //create container for each city
-//   ;
-//   cityEl.classList = "list-group-item btn peviousBtn";
-
-//   cityEl.setAttribute("href", "https://api.openweathermap.org/data/2.5/weather?q=sacramento&units=imperial&appid=299ebedfe3926f8c9e100c54f9104d93");
-
-//   //create spanEl to hold the city name
-//   var previousCityTitle = document.createElement("span");
-//   previousCityTitle.textContent = "need to pull from input - create button as new input and run get weather again??";
-
-//   //append to containers
-//   cityEl.appendChild(previousCityTitle);
-//   searchHistoryContainerEl.appendChild(cityEl);
-// };
-
-//       console.log(data.name)
-//       for (var i = 0; i < data.length; i++) {
-// console.log(data.weather[0].icon)
-//       // }
-//       console.log(data.main.temp);
-//       let currentTemp = (data.main.temp)
-//       // console.log(data.wind.speed);
-//       // console.log(data.main.humidity);
-//       // console.log(data.UV??)
-
-//       let weatherInfo = []
-//       weatherInfo.push("currentTemp")
-//       console.log(weatherInfo);
 
 
+function getSavedCities() {
+  //getting KEY from local storage and Key has value of the ARRAY
+  var savedCities = JSON.parse(localStorage.getItem("city"));
+  console.log(savedCities);
 
+  for (let i = 0; i < savedCities.length; i++) {
+    var savedCityBtnName = savedCities[i]
+    console.log(savedCityBtnName);
 
+    //creating saved city Li
+    var savedCityCardLi = document.createElement("li");
+    savedCityCardLi.classList = "list-group-item city-item"
+    savedCityCardUl.appendChild(savedCityCardLi)
 
-/****   STEP 2: Display Data  A) Current City Weather ******/
+    //creating savedCitiesButton & add to list
+    var savedCityBtn = document.createElement("button");
+    savedCityBtn.classList = "btn btn-block saved-city-btn";
+    savedCityBtn.setAttribute("type", "button");
+    savedCityBtn.textContent = savedCityBtnName
+    savedCityCardLi.appendChild(savedCityBtn)
+  }
 
-// function displayWeather() {
-// //currentCityEl is Ul
-// //create li T, W, H, uv ==> append each to ul
-// //do I set in size so field is always there and then just at varText for main card?
-// var currentTempEl = document.createElement("li");
-// currentTempEl.classList = "list-group-item"
-// currentTempEl.setAttribute("id", "temp");
-// currentTempEl.textContent = data.main.temp;
+  $(".city-card .saved-city-btn").click(function () {
+    var cityName = $(this).text()
+    // console.log(cityName)
 
-// currentCityEl.appendChild(currentTempEl);
-// }
+    if (cityName) {
+      //get weather data using cityName var in getWeather function
+      getCoord(cityName);
+      //clear input field
+      cityNameInputEl.value = "";
+      savedCityBtn.textContent = "";
 
-
-
-// /**** STEP 1 - Get City Coordinates: ****/
-// var getCityCoordinates = function () {
-
-//   var requestCoordinates = 'http://api.openweathermap.org/geo/1.0/direct?q=' + cityName + ',USA&limit=1&appid=299ebedfe3926f8c9e100c54f9104d93';
-//   console.log(requestCoordinates);
-
-//   fetch(requestCoordinates)
-//     .then(function (response) {
-//       return response.json();
-//     })
-
-//     .then(function (data) {
-//       console.log(data);
-//      for (var i = 0; i < data.length; i++) {
-//        console.log(data[i].lat);
-//        console.log(data[i].lon);
-//       }
-//     })
-
-// };
-//  getCityCoordinates();
-// }
-// //lines 105/106 gitit done?? 2 variables? save l& L with city name
-// var getWeatherData = function (lat, lon) {
-//   let latText = 
-//   let
-//   let  weatherUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + latText + '&lon=' + lonText + '&exclude=minutely,hourly&units=imperial&appid=299ebedfe3926f8c9e100c54f9104d93';
-
-//   fetch(weatherUrl).then(function (response) {
-
-//     if (response.ok) {
-//       response.json().then(function (data) {
-//         console.log(data);
-//       });
-//     } else {
-//       alert('Server Error');
-//     };
-//   });
-// }
-
+    } else {
+      //update to modal later
+      alert("Please enter a valid US City name.");
+    };
+    return cityName;
+  })
+}
 
 
 userFormEl.addEventListener("submit", formSubmitHandler);
 
+/**  Components for delete btn enhancement */
+
+// var clearCitiesBtn = document.createElement("button");
+// clearCitiesBtn.classList = "clear-cities-btn  btn mx-auto my-2"
+// clearCitiesBtn.setAttribute("type", "button")
+// savedCityCard.appendChild(clearCitiesBtn)
+//clearCitiesBtn.textContent = "Delete Saved Cities"
 
 
 
+// function deleteCityList(forecastCardUl) {
+//   localStorage.clear();
+//   forecastCardUl.innerHTML = "none";
+// }
 
 
-
-
-
-
-/***SAVE FOR LATER USE MAYBE???**** */
-
-
-
-/***CREATE BUTTONS INSTEAD for HISTORY?  ***/
-// var  searchAgainBtnEl = document.createElement("button");
-// searchAgainBtnEl.classList = "list-group-item searchAgainBtn btn";
-// searchAgainBtnEl.setAttribute("type", "submit");
-// searchAgainBtnEl.textContent = cityName;
-// searchHistoryContainerEl.appendChild(searchAgainBtnEl)
-
-
-
-
-// let currentDayEl = document.querySelector("#currentDay");
-// currentDayEl.textContent = (moment().format("MM/DD/YYYY")
-
-// console.log(moment().toDate());
+/**   Event Listeners  ***/
+// clearCitiesBtn.addEventListener("click", deleteCityList);
