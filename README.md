@@ -58,6 +58,7 @@ Get your weather here [weather dash homepage](https://melliedee.github.io/weathe
 - Openweathermap api & icons - for weather data
 - Luxon for date & time manipulation
 - Google fonts
+- Canva for background pic
 
 &nbsp;
 
