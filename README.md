@@ -60,6 +60,7 @@ Get your weather here [weather dash homepage](https://melliedee.github.io/weathe
 - Google fonts
 - Canva for background pic
 
+
 &nbsp;
 
 ## Screen Shots
@@ -104,7 +105,7 @@ endpoint for call:
 https://stackoverflow.com/questions/44177417/how-to-display-openweathermap-weather-icon
 and  https://github.com/yuvraaaj/openweathermap-api-icons
 
-
+https://forefrontdermatology.com/uv-index-sun-safety-scale/
 
 https://www.iso.org/iso-3166-country-codes.html
 
