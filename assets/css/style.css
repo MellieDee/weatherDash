@@ -210,6 +210,7 @@ font-size: 1.1em;
     body {
       font-size: 18px;
     }
+
     .card-deck {
       margin: 0;
     }
@@ -225,12 +226,18 @@ font-size: 1.1em;
       justify-content: center!important;
   }
 
+    .forecast-title {
+    font-size: 0.9em;
+    font-weight: bold;
+  }
+
    .forecast-item {
     font-size: 0.6em;
     }
+
   } 
 
-  /*   Media Queries large screens & desktop */
+    /* Media Queries large screens & desktop
   @media screen and (min-width: 980px) {
     body {
       font-size: 20px;
@@ -244,4 +251,4 @@ font-size: 1.1em;
      .list-group-item {
        font-size: 0.6em;
      } */
-    }
+    /* } */ 

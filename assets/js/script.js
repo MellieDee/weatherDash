@@ -4,7 +4,7 @@ var DateTime = luxon.DateTime;
 var localTime = DateTime.local();
 console.log(localTime.toString())
 
-/* set userForm vriables */
+/* set userForm variables */
 var userFormEl = document.querySelector("#city-search-form");
 var cityNameInputEl = document.querySelector("#city-name");
 
@@ -293,6 +293,7 @@ function saveCities(cityName) {
 }
 
 
+
 function getSavedCities() {
   //getting KEY from local storage and Key has value of the ARRAY
   var savedCities = JSON.parse(localStorage.getItem("city"));
@@ -336,6 +337,7 @@ function getSavedCities() {
 
 
 userFormEl.addEventListener("submit", formSubmitHandler);
+// userFormEl.submit()
 
 /**  Components for delete btn enhancement */
 
@@ -343,15 +345,20 @@ userFormEl.addEventListener("submit", formSubmitHandler);
 // clearCitiesBtn.classList = "clear-cities-btn  btn mx-auto my-2"
 // clearCitiesBtn.setAttribute("type", "button")
 // savedCityCard.appendChild(clearCitiesBtn)
-//clearCitiesBtn.textContent = "Delete Saved Cities"
+// clearCitiesBtn.textContent = "Delete Saved Cities"
 
 
 
 // function deleteCityList(forecastCardUl) {
-//   localStorage.clear();
-//   forecastCardUl.innerHTML = "none";
+//   // localStorage.clear();
+//   // forecastCardUl.innerHTML = "none";
+//   console.log('btn worked')
 // }
 
+// function testBtn() {
 
-/**   Event Listeners  ***/
-// clearCitiesBtn.addEventListener("click", deleteCityList);
+
+// }
+
+// /**   Event Listeners  ***/
+//  clearCitiesBtn.addEventListener("click", deleteCityList);
